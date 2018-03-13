@@ -8,6 +8,8 @@ const {exec} = require('child_process');
 //Chargement du module de cron
 const Cron = require('cron').CronJob;
 
+const server = require('./libs/serverweb/app');
+
 //Options
 const creanauStart = 1;
 const creanauEnd = 16;
@@ -44,4 +46,4 @@ function runFlux(url, quality, file) {
 }
 
 //Flux de test
-runFlux('twitch.tv/squeezielive', '480p', '-o ' + __dirname +'/record/test.fly');
+//runFlux('twitch.tv/squeezielive', '480p', '-o ' + __dirname +'/record/test.fly');
