@@ -2,6 +2,8 @@
  * SERVEUR AUTORECORD STREAM
  */
 
+global.__basedir = __dirname;
+
 //Chargement du module de sous process
 const {exec} = require('child_process');
 
