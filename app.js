@@ -5,13 +5,17 @@
 //Chargement du module de sous process
 const {exec} = require('child_process');
 
+//Chemin d'accès nodeJs
+var path = require('path');
+var appDir = path.dirname(require.main.filename);
+
 //Chargement du module de cron
 const Cron = require('cron').CronJob;
 
 //Options
 const creanauStart = 1;
 const creanauEnd = 16;
-const streamlinkexec = "D:/MesProjets/GuillaumeAide/app/lib/Streamlink/bin/streamlink.exe";
+const streamlinkexec = appDir + "/libs/streamlink/bin/streamlink.exe";
 
 //Tableau test
 var test = ["test1", "test2", "test3"];
@@ -37,4 +41,4 @@ function runFlux(url, quality, file) {
 }
 
 
-runFlux('twitch.tv/ltzonda', '480p', '-o D:/MesProjets/GuillaumeAide/app/record/test.flv');
+runFlux('twitch.tv/squeezielive', '480p', '-o ' + appDir +'/record/test.fly');
