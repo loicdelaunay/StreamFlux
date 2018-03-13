@@ -5,17 +5,13 @@
 //Chargement du module de sous process
 const {exec} = require('child_process');
 
-//Chemin d'accès nodeJs
-var path = require('path');
-var appDir = path.dirname(require.main.filename);
-
 //Chargement du module de cron
 const Cron = require('cron').CronJob;
 
 //Options
 const creanauStart = 1;
 const creanauEnd = 16;
-const streamlinkexec = appDir + "/libs/streamlink/bin/streamlink.exe";
+const streamlinkexec = __dirname + "/libs/streamlink/win/streamlink.exe";
 
 //Tableau test
 var test = ["test1", "test2", "test3"];
@@ -27,18 +23,25 @@ var listeProcess = [];
 //     console.log("test");
 // }, null, true);
 
-//Lance un bash
+/**
+ * Lance un process streamlink de record
+ * @param url url du stream à récupérer
+ * @param quality qualité du stream
+ * @param file nom du fichier de sortie
+ */
 function runFlux(url, quality, file) {
 //Execution du script et execution dans un children
     listeProcess.push(
         exec(streamlinkexec + ' ' + url + ' ' + quality + ' ' + file, function (error, stdout, stderr) {
-            if (error !== null) {
-                console.log('exec error: ' + error);
+            if (error) {
+                console.log('Erreur: ' + error);
+                return
             }
+            console.log(stdout);
         }));
     //Ecrit l'url du live dans le process
     listeProcess[listeProcess.length - 1].name = url;
 }
 
-
-runFlux('twitch.tv/squeezielive', '480p', '-o ' + appDir +'/record/test.fly');
+//Flux de test
+runFlux('twitch.tv/squeezielive', '480p', '-o ' + __dirname +'/record/test.fly');
