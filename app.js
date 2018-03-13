@@ -2,15 +2,11 @@
  * SERVEUR AUTORECORD STREAM
  */
 
-global.__basedir = __dirname;
+//Création du global root folder
+global.__root = __dirname;
 
-//Chargement du module de sous process
-const {exec} = require('child_process');
-
-//Chargement du module de cron
-const Cron = require('cron').CronJob;
-
-const server = require('./libs/serverweb/app');
+//Autoloader maison ... alors oui c'est fait maison heyyyy ça va changer peut etre mais j'aime bien comme ça :), jsp si c'est légal par contre comme la longueur de se commentaire d'ailleurs 
+require(__dirname + '/libs/autoloader/app');
 
 //Options
 const creanauStart = 1;
@@ -21,6 +17,8 @@ const streamlinkexec = __dirname + "/libs/streamlink/win/streamlink.exe";
 var test = ["test1", "test2", "test3"];
 //Liste des process
 var listeProcess = [];
+
+global.module_logmanager.addLog("test");
 
 //Cron de vérification
 // new Cron('* * * * * 1', function () {
