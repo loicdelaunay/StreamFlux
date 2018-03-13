@@ -1,9 +1,9 @@
-var express = require('express');
+const express = require('express');
 const fs = require('fs');
 
-const config = fs.read(__dirname + '/config/config.json');
+const config = require(__basedir + '/config/config.json');
 
-var app = express();
+const app = express();
 
 app.get('/', function(req, res) {
     res.setHeader('Content-Type', 'text/plain');
