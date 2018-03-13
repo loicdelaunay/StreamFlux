@@ -1,13 +1,14 @@
 const express = require('express');
 const app = express();
-const serverwebfolder = global.__root + '/libs/serverweb/';
+const serverWebFolder = global.__root + '/libs/serverweb/';
+const serverWebFolderViews = global.__root + '/libs/serverweb/assets/views/';
 
 //Utilise asset comme ressource static
-app.use('/assets',express.static('public'));
+app.use(express.static(global.__root + '/libs/serverweb/assets/'));
 
 //Page accueil
 app.get('/', function(req, res) {
-    res.render(serverwebfolder + 'assets/views/accueil.ejs');
+    res.render(serverWebFolderViews + 'accueil.ejs');
 });
 
 //Page introuvable
