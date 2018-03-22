@@ -11,9 +11,14 @@ app.get('/', function(req, res) {
     res.render(serverWebFolderViews + 'accueil.ejs',{page: "home"});
 });
 
-//Page accueil
+//Page records
 app.get('/setRecords', function(req, res) {
     res.render(serverWebFolderViews + 'setRecords.ejs',{page: "setRecords"});
+});
+
+//Page settings
+app.get('/settings', function(req, res) {
+    res.render(serverWebFolderViews + 'settings.ejs',{page: "settings"});
 });
 
 //Page introuvable
