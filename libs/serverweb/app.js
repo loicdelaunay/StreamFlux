@@ -8,7 +8,12 @@ app.use(express.static(global.__root + '/libs/serverweb/assets/'));
 
 //Page accueil
 app.get('/', function(req, res) {
-    res.render(serverWebFolderViews + 'accueil.ejs');
+    res.render(serverWebFolderViews + 'accueil.ejs',{page: "home"});
+});
+
+//Page accueil
+app.get('/setRecords', function(req, res) {
+    res.render(serverWebFolderViews + 'setRecords.ejs',{page: "setRecords"});
 });
 
 //Page introuvable
