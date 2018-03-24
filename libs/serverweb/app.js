@@ -13,7 +13,7 @@ app.get('/', function(req, res) {
 
 //Page records
 app.get('/setRecords', function(req, res) {
-    res.render(serverWebFolderViews + 'setRecords.ejs',{page: "setRecords"});
+    res.render(serverWebFolderViews + 'setRecords.ejs',{page: "setRecords",records: global.listRecords});
 });
 
 //Page settings

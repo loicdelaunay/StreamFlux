@@ -8,6 +8,10 @@
 
 <h2>List records : </h2>
 
+<% records.forEach(function(record){ %>
+<li><%= record.url %> - <%= record.quality %> <%= record.folder %></li>
+<% }); %>
+
 
 <h2>Create new record : </h2>
 <!-- Créer un nouveau record -->
