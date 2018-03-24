@@ -13,8 +13,8 @@ global.module_logmanager = require(global.__root + '/libs/logmanager/app');
 //Chargement du module streamlink
 global.module_record = require(global.__root + '/libs/streamlink/app');
 
-//Chargement du serverweb
-global.module_serverweb = require(global.__root + '/libs/serverweb/app');
-
 //Chargement du module record
 global.module_record = require(global.__root + '/libs/record/app');
+
+//Chargement du serverweb
+global.module_serverweb = require(global.__root + '/libs/serverweb/app');
