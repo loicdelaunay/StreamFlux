@@ -8,20 +8,16 @@ global.module_childprocess = require('child_process');
 global.module_cron = require('cron').CronJob;
 
 //Chargement du log manager
-global.module_logmanager = require(global.__root + '/libs/logmanager/app');
+global.module_logmanager = require(global.__root + '/libs/log-manager/app');
 
 //Chargement du module streamlink
-global.module_record = require(global.__root + '/libs/streamlink/app');
+global.module_streamlink = require(global.__root + '/libs/stream-link/app');
 
 //Chargement du module record
 global.module_record = require(global.__root + '/libs/record/app');
 
-//Tableau test
-global.listRecords = [];
-
-global.listRecords.push(new global.module_record("https://www.twitch.tv/armatvhs","480p",global.__root+"/record/test.avi"));
-global.listRecords.push(new global.module_record("https://www.twitch.tv/squeezie","720p",global.__root+"/record/test2.avi"));
-global.listRecords.push(new global.module_record("https://www.twitch.tv/dream","480p",global.__root+"/record/test3.avi"));
+//Chagement du data manager
+global.module_datamanager = require(global.__root + '/libs/data-manager/app');
 
 //Chargement du serverweb
-global.module_serverweb = require(global.__root + '/libs/serverweb/app');
+global.module_serverweb = require(global.__root + '/libs/server-web/app');
