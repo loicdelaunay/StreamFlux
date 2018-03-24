@@ -1,8 +1,14 @@
-module.exports = class streamlink{
+class streamlink{
     constructor(){
         this.listProcess = [];
     }
 
+    /**
+     * Lance le record d'un flux de stream
+     * @param url
+     * @param quality
+     * @param file
+     */
     recordFlux(url, quality, file) {
         //Execution du script et execution dans un children
         listProcess.push(
@@ -17,6 +23,8 @@ module.exports = class streamlink{
         listeProcess[listeProcess.length - 1].name = url;
     }
 }
+
+module.exports = new streamlink();
 
 //Cron de vérification
 // new Cron('* * * * * 1', function () {

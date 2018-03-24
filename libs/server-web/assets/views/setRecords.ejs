@@ -3,14 +3,44 @@
 
 <!-- Titre -->
 <div>
-<h1>Records : </h1>
+    <h1>Records : </h1>
 </div>
 
 <h2>List records : </h2>
 
-<% records.forEach(function(record){ %>
-<li><%= record.url %> - <%= record.quality %> <%= record.folder %></li>
-<% }); %>
+<!--Table-->
+<table class="table table-striped">
+
+    <!--Table head-->
+    <thead class="blue">
+    <tr>
+        <th>Index</th>
+        <th>Url</th>
+        <th>Quality</th>
+        <th>Folder</th>
+        <th>Start at</th>
+        <th>End at</th>
+    </tr>
+    </thead>
+    <!--Table head-->
+
+    <!--Table body-->
+    <tbody>
+
+    <% records.forEach(function(record,index){ %>
+    <tr>
+        <th scope="row"><%= index %></th>
+        <td><%= record.url %></td>
+        <td><%= record.quality %></td>
+        <td><%= record.folder %></td>
+        <td><%= record.startAt %></td>
+        <td><%= record.endAt %></td>
+    </tr>
+    <% }); %>
+    </tbody>
+    <!--Table body-->
+</table>
+<!--Table-->
 
 
 <h2>Create new record : </h2>
@@ -19,13 +49,13 @@
     <!-- Grid row -->
     <div class="form-row align-items-md-center">
         <!-- Grid column -->
-        <div class="col-7">
+        <div class="col-10">
             <!-- Default input -->
             <input id="url" type="text" class="form-control" placeholder="Flux URL">
         </div>
         <!-- Grid column -->
-        <div class="col">
-            <select id="quality" class="mdb-select bg-white">
+        <div class="col-2">
+            <select id="quality" class="mdb-select">
                 <option value="" disabled selected>Quality</option>
                 <option value="360p">360p</option>
                 <option value="480p">480p</option>
@@ -36,12 +66,22 @@
         </div>
 
         <!-- Grid column -->
-        <div class="col">
+        <div class="col-6">
             <!-- Default input -->
-            <input id="folder" type="text" class="form-control" placeholder="Recordig folder">
+            <input id="folder" type="text" class="form-control" placeholder="Recordig folder"
+                   value="<%= defaultFolder %>">
         </div>
+
+        <div class="col-2">
+            <input placeholder="Start recording at" type="text" id="start-time" class="form-control timepicker">
+        </div>
+
+        <div class="col-2">
+            <input placeholder="End recording at" type="text" id="end-time" class="form-control timepicker">
+        </div>
+
         <!-- Grid column -->
-        <div class="col">
+        <div class="col-1">
             <button id="btn-post" type="button" value="ok" class="btn btn-primary">Ajouter</button>
         </div>
     </div>

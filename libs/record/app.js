@@ -1,7 +1,9 @@
 module.exports = class app{
-    constructor(url,quality,folder){
+    constructor(url,quality,folder,timeStart,timeEnd){
         this.url = url;
         this.quality = quality;
         this.folder = folder;
+        this.startAt = timeStart;
+        this.endAt = timeEnd;
     }
 };

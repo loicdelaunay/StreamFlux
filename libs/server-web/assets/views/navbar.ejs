@@ -36,13 +36,19 @@
 
         <div class="list-group list-group-flush">
             <a href="/" class="list-group-item waves-effect <% if (page === "home") { %> <%= "active" %> <% } %>">
-                <i class="fa fa-pie-chart mr-3"></i>Home
+                <i class="fas fa-home mr-3"></i>Home
             </a>
         </div>
         <div class="list-group list-group-flush">
             <a href="/setRecords"
                class="list-group-item waves-effect <% if (page === "setRecords") { %> <%= "active" %> <% } %>">
-                <i class="fa fa-video-camera mr-3"></i>Set records
+                <i class="fas fa-video mr-3"></i>Set records
+            </a>
+        </div>
+        <div class="list-group list-group-flush">
+            <a href="/process"
+               class="list-group-item waves-effect <% if (page === "process") { %> <%= "active" %> <% } %>">
+            <i class="fas fa-spinner mr-3"></i>Process
             </a>
         </div>
         <div class="list-group list-group-flush">

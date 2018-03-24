@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 
 /** ROUTAGE DE BASE POST **/
 app.post('/addRecord/',function(req,res){
-    global.Records.push(new global.module_record(req.body.url,req.body.quality,req.body.folder));
+    global.Records.push(new global.module_record(req.body.url,req.body.quality,req.body.folder,req.body.startAt,req.body.endAt));
     global.module_datamanager.saveRecords();
     res.json("ok");
 });
@@ -22,9 +22,18 @@ app.get('/', function(req, res) {
     res.render(serverWebFolderViews + 'accueil.ejs',{page: "home"});
 });
 
+//Page process
+app.get('/process', function(req, res) {
+    res.render(serverWebFolderViews + 'process.ejs',{page: "process"});
+});
+
 //Page records
 app.get('/setRecords', function(req, res) {
-    res.render(serverWebFolderViews + 'setRecords.ejs',{page: "setRecords",records: global.Records});
+    res.render(serverWebFolderViews + 'setRecords.ejs',{
+        page: "setRecords",
+        records: global.Records,
+        defaultFolder : global.__root + '\\data\\record.avi',
+    });
 });
 
 //Page settings

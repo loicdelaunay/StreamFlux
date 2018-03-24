@@ -4,6 +4,8 @@ $(document).ready(function(){
         let url = $("#url").val();
         let quality = $("#quality").val();
         let folder = $("#folder").val();
+        let startAt = $("#start-time").val();
+        let endAt = $("#end-time").val();
 
         $.ajax({
                 url: "/addRecord/",
@@ -13,6 +15,8 @@ $(document).ready(function(){
                     url: url,
                     folder: folder,
                     quality: quality,
+                    startAt: startAt,
+                    endAt: endAt,
                 },
                 success: function (data) {
                     console.log(data);
