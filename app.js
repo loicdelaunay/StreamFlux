@@ -16,5 +16,5 @@ global.module_logmanager.addLog("-*-*-*-*- Welcome to StreamingFlux :) -*-*-*-*-
 global.module_logmanager.addLog(" -* Program version : "+ global.version + " *- ");
 global.module_logmanager.addLog(" -* NodeJS version : "+ global.process.version + " *- ");
 global.module_logmanager.addLog(" -* Folder : "+ global.__root + " *- ");
-global.module_logmanager.addLog(" -* OS : "+ global.module_os.platform + " *- ");
+global.module_logmanager.addLog(" -* OS : "+ global.module_os.type + "/" + global.module_os.platform + " *- ");
 global.module_logmanager.addLog("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
