@@ -27,9 +27,12 @@ class streamlink{
 module.exports = new streamlink();
 
 //Cron de vérification
-// new Cron('* * * * * 1', function () {
-//     console.log("test");
-// }, null, true);
+new Cron('* * * * * 10', function () {
+    console.log("Cron vérification stream");
+    global.Records.forEach(function(unRecord){
+
+    })
+}, null, true);
 
 /**
  * Lance un process streamlink de record
