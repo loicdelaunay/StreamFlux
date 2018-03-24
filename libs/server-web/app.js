@@ -1,18 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const serverWebFolder = global.__root + '/libs/serverweb/';
-const serverWebFolderViews = global.__root + '/libs/serverweb/assets/views/';
+const serverWebFolder = global.__root + '/libs/server-web/';
+const serverWebFolderViews = global.__root + '/libs/server-web/assets/views/';
 
 //Configuration de express.js
-app.use(express.static(global.__root + '/libs/serverweb/assets/'));
+app.use(express.static(global.__root + '/libs/server-web/assets/'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 /** ROUTAGE DE BASE POST **/
 app.post('/addRecord/',function(req,res){
-    console.log(req.body.quality);
-    global.list
+    global.Records.push(new global.module_record(req.body.url,req.body.quality,req.body.folder));
+    global.module_datamanager.saveRecords();
     res.json("ok");
 });
 
@@ -24,7 +24,7 @@ app.get('/', function(req, res) {
 
 //Page records
 app.get('/setRecords', function(req, res) {
-    res.render(serverWebFolderViews + 'setRecords.ejs',{page: "setRecords",records: global.listRecords});
+    res.render(serverWebFolderViews + 'setRecords.ejs',{page: "setRecords",records: global.Records});
 });
 
 //Page settings
