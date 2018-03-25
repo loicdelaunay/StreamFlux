@@ -6,7 +6,6 @@ global.module_logmanager = require(global.__root + '/libs/log-manager/app');
  */
 global.module_logmanager.addLog("-*-*- Loading -*-*-");
 
-
 global.config = require(global.__root + '/config/config.json');
 global.module_logmanager.addLog("- Config file -> ok");
 
@@ -15,6 +14,9 @@ global.module_logmanager.addLog("- Module FileSystem -> ok");
 
 global.module_childprocess = require('child_process');
 global.module_logmanager.addLog("- Module Child Process -> ok");
+
+global.module_spawncommand = require(global.__root + '/libs/spawn-command/app');
+global.module_logmanager.addLog("- Libs Spawn Command -> ok");
 
 global.module_cron = require('cron').CronJob;
 global.module_logmanager.addLog("- Module Cron -> ok");
@@ -33,5 +35,8 @@ global.module_logmanager.addLog("- Module Server Web -> ok");
 
 global.module_os = require('os');
 global.module_logmanager.addLog("-  Module OS -> ok");
+
+global.module_moment = require('moment');
+global.module_logmanager.addLog("-  Module Moment.js -> ok");
 
 global.module_logmanager.addLog("-*-*- Loading finished -*-*-\n\n");
