@@ -5,5 +5,6 @@ module.exports = class app{
         this.folder = folder;
         this.startAt = timeStart;
         this.endAt = timeEnd;
+        this.uid = Date.now();
     }
 };
