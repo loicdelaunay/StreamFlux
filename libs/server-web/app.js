@@ -16,6 +16,11 @@ app.post('/addRecord/',function(req,res){
     res.json("ok");
 });
 
+app.post('/removeRecord/',function(req,res){
+    global.module_datamanager.removeRecords(req.body.uid);
+    res.json("ok");
+});
+
 /** ROUTAGE DE BASE **/
 //Page accueil
 app.get('/', function(req, res) {
@@ -32,7 +37,7 @@ app.get('/setRecords', function(req, res) {
     res.render(serverWebFolderViews + 'setRecords.ejs',{
         page: "setRecords",
         records: global.Records,
-        defaultFolder : global.__root + '\\data\\record.avi',
+        defaultFolder : global.__root + '\\data\\record\\',
     });
 });
 

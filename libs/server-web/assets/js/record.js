@@ -2,7 +2,7 @@
 $("#btn-post").click(function () {
     let url = $("#url").val();
     let quality = $("#quality").val();
-    let folder = $("#folder").val();
+    let folder = $("#folder").val() + $("#filename").val() + ".avi";
     let startAt = $("#start-time").val();
     let endAt = $("#end-time").val();
 

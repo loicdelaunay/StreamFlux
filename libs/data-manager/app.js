@@ -34,6 +34,14 @@ class dataManager{
             }
         })
     }
+
+    /**
+     * Remove record in list
+     * @param uid : uid of record
+     */
+    removeRecords(uid){
+        global.Records = [];
+    }
 }
 
 module.exports = new dataManager();

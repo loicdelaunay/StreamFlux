@@ -12,9 +12,8 @@
 <table class="table table-hover z-depth-1 table-responsive-xl">
 
     <!--Table head-->
-    <thead class="primary-color">
+    <thead class="primary-color text-white">
     <tr>
-        <th>Uid</th>
         <th>Url</th>
         <th>Quality</th>
         <th>Folder</th>
@@ -30,14 +29,14 @@
 
     <% records.forEach(function(record,index){ %>
     <tr>
-        <th scope="row"><%= record.uid %></th>
         <td><%= record.url %></td>
         <td><%= record.quality %></td>
         <td><%= record.folder %></td>
         <td><%= record.startAt %></td>
         <td><%= record.endAt %></td>
         <td>
-            <a data-uid="<%= record.uid %>" class="badge badge-pill danger-color remove-record"><i class="fas fa-trash-alt fa-2x"></i></a>
+            <a data-uid="<%= record.uid %>" class="badge badge-pill danger-color remove-record"><i
+                    class="fas fa-trash-alt fa-2x"></i></a>
         </td>
     </tr>
     <% }); %>
@@ -53,9 +52,10 @@
     <!-- Grid row -->
     <div class="form-row align-items-md-center">
         <!-- Grid column -->
-        <div class="col-10">
+        <div class="col-10 md-form">
             <!-- Default input -->
-            <input id="url" type="text" class="form-control" placeholder="Flux URL">
+            <input id="url" type="text" class="form-control">
+            <label for="url" >Flux URL</label>
         </div>
         <!-- Grid column -->
         <div class="col-2">
@@ -69,28 +69,30 @@
             </select>
         </div>
 
-        <!-- Grid column -->
-        <div class="col-6">
-            <!-- Default input -->
-            <input id="folder" type="text" class="form-control" placeholder="Recordig folder"
-                   value="<%= defaultFolder %>">
+        <div class="col-4 md-form">
+            <input id="folder" type="text" class="form-control" value="<%= defaultFolder %>">
+            <label for="folder" >Recordig folder</label>
         </div>
 
-        <div class="col-2">
-            <input placeholder="Start recording at" type="text" id="start-time" class="form-control timepicker">
+        <div class="col-2 md-form">
+            <input id="filename" type="text" class="form-control" value="MyVideo">
+            <label for="filename" >Video name</label>
         </div>
 
-        <div class="col-2">
-            <input placeholder="End recording at" type="text" id="end-time" class="form-control timepicker">
+        <div class="col-2 md-form">
+            <input id="start-time" type="text" class="form-control timepicker">
+            <label for="start-time" >Start recording at</label>
         </div>
 
-        <!-- Grid column -->
-        <div class="col-1">
+        <div class="col-2 md-form">
+            <input id="end-time" type="text" class="form-control timepicker">
+            <label for="end-time" >End recording at</label>
+        </div>
+
+        <div class="col-1 md-form">
             <button id="btn-post" type="button" value="ok" class="btn btn-primary">Ajouter</button>
         </div>
     </div>
-    <!-- Grid row -->
 </form>
-<!-- Default column sizing form -->
 
 <%include footer%>
