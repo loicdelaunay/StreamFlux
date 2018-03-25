@@ -29,7 +29,10 @@ app.get('/', function(req, res) {
 
 //Page process
 app.get('/process', function(req, res) {
-    res.render(serverWebFolderViews + 'process.ejs',{page: "process"});
+    res.render(serverWebFolderViews + 'process.ejs',{
+        page: "process",
+        process: global.listProcess
+    });
 });
 
 //Page records

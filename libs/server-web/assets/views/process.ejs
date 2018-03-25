@@ -6,8 +6,33 @@
 <h1>Process : </h1>
 </div>
 
-<h2>List process : </h2>
+<!--Card group-->
+<div class="card-group">
 
+    <% process.forEach(function(unProcess,index){%>
+    <!--Card-->
+    <div class="card mb-4">
 
+        <!--Card content-->
+        <div class="card-body">
+
+            <!--Title-->
+            <h4 class="card-title"><%= unProcess.url %></h4>
+
+            <!--Text-->
+            <p class="card-text">Informations :.</p>
+            <span class="badge cyan"><i class="fas fa-hdd"></i> Size : <%= unProcess.size %></span>
+            <span class="badge purple "><i class="fas fa-cloud-download-alt"></i> Speed : <%= unProcess.speed %></span>
+            <span class="badge indigo"><i class="fas fa-clock"></i> Recording time : <%= unProcess.time %></span>
+
+            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+        </div>
+        <!--Card content-->
+    </div>
+    <!--Card-->
+    <% }); %>
+
+</div>
+<!--Card group-->
 
 <%include footer%>
