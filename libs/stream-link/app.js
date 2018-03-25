@@ -28,8 +28,10 @@ module.exports = new streamlink();
 
 //Cron de vérification
 new global.module_cron('* * * * 10 *', function () {
-    console.log("Cron vérification stream");
+    console.log("Vérification des process");
+    let hourNow = new Date().getHours();
     global.records.forEach(function(unRecord){
+        if(unRecord.startAt)
 
     })
 }, null, true);
