@@ -27,9 +27,15 @@ class commandSpawn{
             //Try to get infos from process
             let args = data.toString().split(' ');
 
-            process.size = args[2] + ' ' + args[3];
-            process.speed = args[6] + ' ' + args[7].slice(0,args[7].length-1);
-            process.time = args[4].substr(1);
+            if(args[2] !== undefined && args[3] !== undefined){
+                process.size = args[2] + ' ' + args[3];
+            }
+            if(args[6] !== undefined && args[7] !== undefined){
+                process.speed = args[6] + ' ' + args[7].slice(0,args[7].length-1);
+            }
+            if(args[4] !== undefined ){
+                process.time = args[4].substr(1);
+            }
         });
 
         process.on('exit', (code) => {
