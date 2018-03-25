@@ -29,7 +29,7 @@ module.exports = new streamlink();
 //Cron de vérification
 new global.module_cron('* * * * 10 *', function () {
     console.log("Cron vérification stream");
-    global.Records.forEach(function(unRecord){
+    global.records.forEach(function(unRecord){
 
     })
 }, null, true);

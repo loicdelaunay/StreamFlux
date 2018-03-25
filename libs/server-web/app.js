@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 
 /** ROUTAGE DE BASE POST **/
 app.post('/addRecord/',function(req,res){
-    global.Records.push(new global.module_record(req.body.url,req.body.quality,req.body.folder,req.body.startAt,req.body.endAt));
+    global.records.push(new global.module_record(req.body.url,req.body.quality,req.body.folder,req.body.startAt,req.body.endAt));
     global.module_datamanager.saveRecords();
     res.json("ok");
 });
@@ -36,7 +36,7 @@ app.get('/process', function(req, res) {
 app.get('/setRecords', function(req, res) {
     res.render(serverWebFolderViews + 'setRecords.ejs',{
         page: "setRecords",
-        records: global.Records,
+        records: global.records,
         defaultFolder : global.__root + '\\data\\record\\',
     });
 });

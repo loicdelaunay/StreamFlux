@@ -47,6 +47,9 @@ $('.remove-record').click(function () {
         },
         success: function (data) {
             toastr['success']('record setting deleted !');
+            setTimeout(function () {
+                location.reload();
+            }, 1000)
         }
     })
 });

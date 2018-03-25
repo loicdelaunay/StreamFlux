@@ -1,8 +1,8 @@
 
 
 
-//Records array
-global.Records = [];
+//records array
+global.records = [];
 
 /**
  * Loading from disk records
@@ -10,7 +10,7 @@ global.Records = [];
 let dataRecordsPath = global.__root + "/data/records.json";
 
 if(global.module_filesystem.existsSync(dataRecordsPath)){
-    global.Records = JSON.parse(global.module_filesystem.readFileSync(dataRecordsPath,"utf8"));
+    global.records = JSON.parse(global.module_filesystem.readFileSync(dataRecordsPath,"utf8"));
 }else{
     global.module_logmanager.addLog("No records saved list");
 }
@@ -23,14 +23,14 @@ class dataManager{
     constructor(){
     }
     /**
-     * Save Records on disk in Json file records.json
+     * Save records on disk in Json file records.json
      */
     saveRecords(){
-        global.module_filesystem.writeFileSync(dataRecordsPath,JSON.stringify(global.Records),function(err){
+        global.module_filesystem.writeFileSync(dataRecordsPath,JSON.stringify(global.records),function(err){
             if(err){
                 global.module_logmanager.addLog("Error creation of records data file : " + err);
             }else{
-                global.module_logmanager.addLog("Records list saved on disk");
+                global.module_logmanager.addLog("records list saved on disk");
             }
         })
     }
@@ -40,7 +40,12 @@ class dataManager{
      * @param uid : uid of record
      */
     removeRecords(uid){
-        global.Records = [];
+        global.records.forEach(function(unRecord,index){
+            if(unRecord.uid.toString() === uid.toString()){
+                global.records.splice(index,1);
+                global.module_datamanager.saveRecords();
+            }
+        });
     }
 }
 
