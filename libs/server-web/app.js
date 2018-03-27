@@ -3,6 +3,13 @@ const bodyParser = require('body-parser');
 const app = express();
 const serverWebFolder = global.__root + '/libs/server-web/';
 const serverWebFolderViews = global.__root + '/libs/server-web/assets/views/';
+var default_download_forder = "";
+
+if(global.config.default_folder === "default"){
+    default_download_forder = global.__root + '\\data\\record\\'
+}else{
+    default_download_forder = global.config.default_folder
+}
 
 //Configuration de express.js
 app.use(express.static(global.__root + '/libs/server-web/assets/'));
@@ -40,7 +47,7 @@ app.get('/setRecords', function(req, res) {
     res.render(serverWebFolderViews + 'setRecords.ejs',{
         page: "setRecords",
         records: global.records,
-        defaultFolder : global.__root + '\\data\\record\\',
+        defaultFolder : default_download_forder,
     });
 });
 
