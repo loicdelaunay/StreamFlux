@@ -6,7 +6,36 @@ class commandSpawn{
 
     }
 
-    exec(command,uid){
+    /**
+     * Launch process in background
+     * @param command
+     * @returns {*|RegExpExecArray}
+     */
+    exec(command){
+        let process = global.module_childprocess.exec(command);
+
+        process.stdout.on('data', (data) => {
+            global.module_logmanager.addLog('Sub-Process log -> ' + process.uid + ' : ' + data.toString())
+        });
+
+        process.stderr.on('data', (data) => {
+            global.module_logmanager.addLog('Sub-Process error -> ' + process.uid + ' : ' + data.toString())
+        });
+
+        process.on('exit', (code) => {
+            global.module_logmanager.addLog('Sub-Process exit -> ' + process.uid + ' : ' + code.toString())
+        });
+        return process;
+    }
+
+    /**
+     * Launch process for streamlink in background
+     *
+     * @param command command to launch in subprocess
+     * @param uid uid of record linked in process
+     * @returns {process}
+     */
+    execStreamLink(command,uid){
         let process = global.module_childprocess.exec(command);
 
         process.uid = uid; //Uid of process = record uid
@@ -15,14 +44,12 @@ class commandSpawn{
         process.time = "loading ...";
 
         process.stdout.on('data', (data) => {
-            global.module_logmanager.addLog('Sub-Process log -> ' + process.uid + ' : ' + data.toString())
+            global.module_logmanager.addLog('Process ' + process.uid + ' : ' + data.toString())
 
-            //Try to get size
-            let test = data.toString().split(' ')
         });
 
         process.stderr.on('data', (data) => {
-            global.module_logmanager.addLog('Sub-Process error -> ' + process.uid + ' : ' + data.toString())
+            global.module_logmanager.addLog('Process ' + process.uid + ' : ' + data.toString())
 
             //Try to get infos from process
             let args = data.toString().split(' ');
@@ -39,7 +66,7 @@ class commandSpawn{
         });
 
         process.on('exit', (code) => {
-            global.module_logmanager.addLog('Sub-Process exit -> ' + process.uid + ' : ' + code.toString())
+            global.module_logmanager.addLog('Process ' + process.uid + ' exited : ' + code.toString())
         });
         return process;
     }

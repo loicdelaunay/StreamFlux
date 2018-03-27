@@ -12,6 +12,9 @@ global.module_logmanager.addLog("- Config file -> ok");
 global.module_filesystem = require('fs');
 global.module_logmanager.addLog("- Module FileSystem -> ok");
 
+global.module_path = require('path');
+global.module_logmanager.addLog("- Module Path -> ok");
+
 global.module_childprocess = require('child_process');
 global.module_logmanager.addLog("- Module Child Process -> ok");
 

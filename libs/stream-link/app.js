@@ -28,24 +28,30 @@ class streamlink {
 
     /**
      * Lance le record d'un flux de stream
-     * @param url
-     * @param quality
-     * @param file
+     *
+     * @param unRecord
      */
     recordFlux(unRecord) {
-        //Execution du script et execution dans un children
-        global.listProcess.push(global.module_spawncommand.exec(
-            global.streamlinkexec + ' ' + unRecord.url + ' ' + unRecord.quality + ' ' + '-o ' + unRecord.folder,
+
+        //File to save flux
+        let fileToSave = unRecord.folder;
+
+        //Try if a record file already exist
+        if(this.recordExist(unRecord.folder)){
+            //Saved file named blablablaTimestamp.mp4
+            fileToSave = unRecord.folder.replace(/\.[^.$]+$/, '') + Date.now() + ".mp4";
+        }
+
+        //Execution du script et execution dans un children d'un process pour streamlink
+        global.listProcess.push(global.module_spawncommand.execStreamLink(
+            global.streamlinkexec + ' ' + unRecord.url + ' ' + unRecord.quality + ' ' + '-o ' + fileToSave,
             unRecord.uid
         ));
-
-        //Ecrit l'url et l'uid du live dans le process
-        global.listProcess[global.listProcess.length - 1].url = unRecord.url;
-        global.listProcess[global.listProcess.length - 1].uid = unRecord.uid;
     }
 
     /**
-     * Try if recording is running
+     * Try if recording is already running
+     *
      * @param uid
      */
     isRecording(uid) {
@@ -56,6 +62,16 @@ class streamlink {
             }
         });
         return find;
+    }
+
+    /**
+     * Try if file already exist
+     *
+     * @param folder
+     * @returns {boolean}
+     */
+    recordExist(folder){
+        return global.module_filesystem.existsSync(folder);
     }
 }
 
