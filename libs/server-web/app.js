@@ -5,6 +5,7 @@ const serverWebFolder = global.__root + '/libs/server-web/';
 const serverWebFolderViews = global.__root + '/libs/server-web/assets/views/';
 var default_download_forder = "";
 
+//Set download default folder with config file
 if(global.config.default_folder === "default"){
     default_download_forder = global.__root + '\\data\\record\\'
 }else{
