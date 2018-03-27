@@ -10,10 +10,10 @@ class dataManager{
         /**
          * Loading from disk records
          */
-        let dataRecordsPath = global.__root + "/data/records.json";
+        this.dataRecordsPath = global.__root + "/data/records.json";
 
-        if(global.module_filesystem.existsSync(dataRecordsPath)){
-            global.records = JSON.parse(global.module_filesystem.readFileSync(dataRecordsPath,"utf8"));
+        if(global.module_filesystem.existsSync(this.dataRecordsPath)){
+            global.records = JSON.parse(global.module_filesystem.readFileSync(this.dataRecordsPath,"utf8"));
         }else{
             global.module_logmanager.addLog("No records saved list");
         }
@@ -22,7 +22,7 @@ class dataManager{
      * Save records on disk in Json file records.json
      */
     saveRecords(){
-        global.module_filesystem.writeFileSync(dataRecordsPath,JSON.stringify(global.records),function(err){
+        global.module_filesystem.writeFileSync(this.dataRecordsPath,JSON.stringify(global.records),function(err){
             if(err){
                 global.module_logmanager.addLog("Error creation of records data file : " + err);
             }else{

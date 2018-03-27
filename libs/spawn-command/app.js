@@ -8,8 +8,9 @@ class commandSpawn{
 
     /**
      * Launch process in background
+     *
      * @param command
-     * @returns {*|RegExpExecArray}
+     * @returns {process}
      */
     exec(command){
         let process = global.module_childprocess.exec(command);
@@ -42,10 +43,18 @@ class commandSpawn{
         process.size = "loading ...";
         process.speed = "loading ...";
         process.time = "loading ...";
+        process.state = "loading";
 
         process.stdout.on('data', (data) => {
             global.module_logmanager.addLog('Process ' + process.uid + ' : ' + data.toString())
 
+            //Try to get infos from process
+            let args = data.toString().split(' ');
+
+            //Catch process error
+            if(args[0] !== undefined && args[0] === "error:"){
+                this.setState(process.uid,"error",data);
+            }
         });
 
         process.stderr.on('data', (data) => {
@@ -56,6 +65,7 @@ class commandSpawn{
 
             if(args[2] !== undefined && args[3] !== undefined){
                 process.size = args[2] + ' ' + args[3];
+                this.setState(process.uid,"running","process is actually recording")
             }
             if(args[6] !== undefined && args[7] !== undefined){
                 process.speed = args[6] + ' ' + args[7].slice(0,args[7].length-1);
@@ -69,6 +79,22 @@ class commandSpawn{
             global.module_logmanager.addLog('Process ' + process.uid + ' exited : ' + code.toString())
         });
         return process;
+    }
+
+    /**
+     * Find record object of process and set state
+     *
+     * @param uid uid of record to find
+     * @param state
+     * @param stateMessage
+     */
+    setState(uid,state,stateMessage){
+        global.records.forEach(function(unRecord){
+            if(unRecord.uid = uid){
+                unRecord.state = state;
+                unRecord.stateMessage = stateMessage;
+            }
+        })
     }
 }
 

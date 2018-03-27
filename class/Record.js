@@ -6,5 +6,7 @@ module.exports = class app{
         this.startAt = timeStart;
         this.endAt = timeEnd;
         this.uid = Date.now();
+        this.state = "none";
+        this.stateMessage = "none";
     }
 };

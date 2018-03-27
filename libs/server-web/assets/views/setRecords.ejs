@@ -19,6 +19,7 @@
         <th>Folder</th>
         <th>Start at</th>
         <th>End at</th>
+        <th>State</th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -34,6 +35,7 @@
         <td><%= record.folder %></td>
         <td><%= record.startAt %></td>
         <td><%= record.endAt %></td>
+        <td data-toggle="tooltip" data-placement="bottom" title="<%= record.stateMessage %>"><%= record.state %></td>
         <td>
             <a data-uid="<%= record.uid %>" class="badge badge-pill danger-color remove-record"><i
                     class="fas fa-trash-alt fa-2x"></i></a>

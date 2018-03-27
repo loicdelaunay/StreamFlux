@@ -35,6 +35,7 @@ class streamlink {
 
         //File to save flux
         let fileToSave = unRecord.folder;
+        let index = 0;
 
         //Try if a record file already exist
         if(this.recordExist(unRecord.folder)){
@@ -42,11 +43,16 @@ class streamlink {
             fileToSave = unRecord.folder.replace(/\.[^.$]+$/, '') + Date.now() + ".mp4";
         }
 
-        //Execution du script et execution dans un children d'un process pour streamlink
+        //Execute stream link command in a child process contained in NodeJS
         global.listProcess.push(global.module_spawncommand.execStreamLink(
             global.streamlinkexec + ' ' + unRecord.url + ' ' + unRecord.quality + ' ' + '-o ' + fileToSave,
             unRecord.uid
         ));
+
+        //Write process state in record
+        index = global.listProcess.length-1;
+        unRecord.state = global.listProcess[index].state;
+        unRecord.stateMessage = global.listProcess[index].stateMessage;
     }
 
     /**
