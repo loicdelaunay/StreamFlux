@@ -27,7 +27,7 @@ global.module_logmanager.addLog("- Module Cron -> ok");
 global.module_streamlink = require(global.__root + '/libs/stream-link/app');
 global.module_logmanager.addLog("- Libs & Module Streamlink -> ok");
 
-global.module_record = require(global.__root + '/libs/record/app');
+global.class_record = require(global.__root + '/class/Record');
 global.module_logmanager.addLog("- Class Record -> ok");
 
 global.module_datamanager = require(global.__root + '/libs/data-manager/app');

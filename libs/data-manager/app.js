@@ -1,26 +1,22 @@
-
-
-
-//records array
-global.records = [];
-
-/**
- * Loading from disk records
- */
-let dataRecordsPath = global.__root + "/data/records.json";
-
-if(global.module_filesystem.existsSync(dataRecordsPath)){
-    global.records = JSON.parse(global.module_filesystem.readFileSync(dataRecordsPath,"utf8"));
-}else{
-    global.module_logmanager.addLog("No records saved list");
-}
-
 /**
  * Data manager
  * @class dataManager
  */
 class dataManager{
     constructor(){
+        //records array
+        global.records = [];
+
+        /**
+         * Loading from disk records
+         */
+        let dataRecordsPath = global.__root + "/data/records.json";
+
+        if(global.module_filesystem.existsSync(dataRecordsPath)){
+            global.records = JSON.parse(global.module_filesystem.readFileSync(dataRecordsPath,"utf8"));
+        }else{
+            global.module_logmanager.addLog("No records saved list");
+        }
     }
     /**
      * Save records on disk in Json file records.json

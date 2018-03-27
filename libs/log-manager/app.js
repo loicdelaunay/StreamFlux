@@ -1,3 +1,6 @@
+/**
+ *
+ */
 class logManager{
      addLog(msg){
         console.log(msg);

@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 
 /** ROUTAGE DE BASE POST **/
 app.post('/addRecord/',function(req,res){
-    global.records.push(new global.module_record(req.body.url,req.body.quality,req.body.folder,req.body.startAt,req.body.endAt));
+    global.records.push(new global.class_record(req.body.url,req.body.quality,req.body.folder,req.body.startAt,req.body.endAt));
     global.module_datamanager.saveRecords();
     res.json("ok");
 });
