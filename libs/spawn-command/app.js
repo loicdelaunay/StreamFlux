@@ -54,6 +54,7 @@ class commandSpawn{
             //Catch process error
             if(args[0] !== undefined && args[0] === "error:"){
                 this.setState(process.uid,"error",data);
+                this.removeProcess(process.uid);
             }
         });
 
@@ -93,6 +94,17 @@ class commandSpawn{
             if(unRecord.uid = uid){
                 unRecord.state = state;
                 unRecord.stateMessage = stateMessage;
+            }
+        })
+    }
+
+    /**
+     * Destroy process
+     */
+    removeProcess(uid){
+        global.listProcess.forEach(function (unProcess,index){
+            if(unProcess.uid === uid){
+                global.listProcess.splice(index,1);
             }
         })
     }
