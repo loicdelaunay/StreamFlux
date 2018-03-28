@@ -75,8 +75,8 @@ class commandSpawn{
                 process.time = args[4].substr(1);
             }
             if (args[0] == "Available" && args[1] == "streams:") {      //Catch available stream qualities
-                var qualities = data.toString().substring(0, (args[0].length + args[1].length) - 1);
-                qualities = sub.split(',');
+                let qualities = data.toString().substring(0, (args[0].length + args[1].length) - 1);
+                qualities = qualities.split(',');
                 qualities.forEach(function(quality){
                     quality.replace(/ *\([^)]*\) */g, "");
                 })
