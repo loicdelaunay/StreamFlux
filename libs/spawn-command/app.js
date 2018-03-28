@@ -77,10 +77,9 @@ class commandSpawn{
             if (args[0] == "Available" && args[1] == "streams:") {      //Catch available stream qualities
                 var qualities = data.toString().substring(0, (args[0].length + args[1].length) - 1);
                 qualities = sub.split(',');
-                for (var aQuality in qualities) {
-                    aQuality.replace(/ *\([^)]*\) */g, "");     //Filter and remove "(best)" and "(worst)" brackets
-                }
-                process.qualities
+                qualities.forEach(function(quality){
+                    quality.replace(/ *\([^)]*\) */g, "");
+                })
             }
         });
 
