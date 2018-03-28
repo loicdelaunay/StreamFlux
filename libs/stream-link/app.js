@@ -68,7 +68,7 @@ class streamlink {
             }
         });
         return find;
-    }
+}
 
     /**
      * Try if file already exist
