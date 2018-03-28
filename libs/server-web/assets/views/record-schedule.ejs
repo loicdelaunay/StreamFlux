@@ -8,47 +8,43 @@
 
 <h2>List records : </h2>
 
-<!--Table-->
-<table class="table table-hover z-depth-1 table-responsive-xl">
-
-    <!--Table head-->
-    <thead class="primary-color text-white">
-    <tr>
-        <th>Url</th>
-        <th>Quality</th>
-        <th>Folder</th>
-        <th>Start at</th>
-        <th>End at</th>
-        <th>State</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <!--Table head-->
-
-    <!--Table body-->
-    <tbody>
-
-    <% records.forEach(function(record,index){ %>
-    <tr>
-        <td><%= record.url %></td>
-        <td><%= record.quality %></td>
-        <td><%= record.folder %></td>
-        <td><%= record.startAt %></td>
-        <td><%= record.endAt %></td>
-        <td data-toggle="tooltip" data-placement="bottom" title="<%= record.stateMessage %>"><%= record.state %></td>
-        <td>
-            <a data-uid="<%= record.uid %>" class="badge badge-pill danger-color remove-record"><i
-                    class="fas fa-trash-alt fa-2x"></i></a>
-        </td>
-    </tr>
-    <% }); %>
-    </tbody>
-    <!--Table body-->
-</table>
-<!--Table-->
-
 <div id="app">
-    {{test}}
+    <!--Table-->
+    <table class="table table-hover z-depth-1 table-responsive-xl">
+
+        <!--Table head-->
+        <thead class="primary-color text-white">
+        <tr>
+            <th>Url</th>
+            <th>Quality</th>
+            <th>Folder</th>
+            <th>Start at</th>
+            <th>End at</th>
+            <th>State</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <!--Table head-->
+
+        <!--Table body-->
+        <tbody>
+
+        <tr v-for="record in records">
+            <td>{{ record.url }}</td>
+            <td>{{ record.quality }}</td>
+            <td>{{ record.folder }}</td>
+            <td>{{ record.startAt }}</td>
+            <td>{{ record.endAt }}</td>
+            <td data-toggle="tooltip" data-placement="bottom" :title="record.stateMessage">{{ record.state }}</td>
+            <td>
+                <a class="badge badge-pill danger-color remove-record" v-on:click="removeRecord(record.uid)"><i
+                        class="fas fa-trash-alt fa-2x"></i></a>
+            </td>
+        </tr>
+        </tbody>
+        <!--Table body-->
+    </table>
+    <!--Table-->
 </div>
 
 <h2>Create new record : </h2>
@@ -60,7 +56,7 @@
         <div class="col-10 md-form">
             <!-- Default input -->
             <input id="url" type="text" class="form-control">
-            <label for="url" >Flux URL</label>
+            <label for="url">Flux URL</label>
         </div>
         <!-- Grid column -->
         <div class="col-2">
@@ -76,22 +72,22 @@
 
         <div class="col-4 md-form">
             <input id="folder" type="text" class="form-control" value="<%= defaultFolder %>">
-            <label for="folder" >Recordig folder</label>
+            <label for="folder">Recordig folder</label>
         </div>
 
         <div class="col-2 md-form">
             <input id="filename" type="text" class="form-control" value="MyVideo">
-            <label for="filename" >Video name</label>
+            <label for="filename">Video name</label>
         </div>
 
         <div class="col-2 md-form">
             <input id="start-time" type="text" class="form-control timepicker">
-            <label for="start-time" >Start recording at</label>
+            <label for="start-time">Start recording at</label>
         </div>
 
         <div class="col-2 md-form">
             <input id="end-time" type="text" class="form-control timepicker">
-            <label for="end-time" >End recording at</label>
+            <label for="end-time">End recording at</label>
         </div>
 
         <div class="col-1 md-form">

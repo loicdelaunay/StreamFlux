@@ -23,41 +23,38 @@ $("#btn-post").click(function () {
 
             success: function (data) {
                 toastr['success']('record saved and ready !');
-                setTimeout(function () {
-                    location.reload();
-                }, 1000)
             }
         }
     )
 });
 
-//When user remove record
-$('.remove-record').click(function () {
-    let uid = $(this).attr("data-uid");
-    console.log(uid);
-    $.ajax({
-        url: "/removeRecord/",
-        type: "POST",
-        dataType: "Json",
-        data: {
-            uid: uid,
-        },
-        error: function (data) {
-            toastr['error']('error in deleting ! : ' + data.responseText);
-        },
-        success: function (data) {
-            toastr['success']('record setting deleted !');
-            setTimeout(function () {
-                location.reload();
-            }, 1000)
-        }
-    })
-});
-
+//Table management
 var app = new Vue({
     el: " #app",
     data: {
         records: [],
-        test: "vuejs ok"
+    },
+    methods: {
+      removeRecord(uid){
+          $.ajax({
+              url: "/removeRecord/",
+              type: "POST",
+              dataType: "Json",
+              data: {
+                  uid: uid,
+              },
+              error: function (data) {
+                  toastr['error']('error in deleting ! : ' + data.responseText);
+              },
+              success: function (data) {
+                  toastr['success']('record setting deleted !');
+              }
+          })
+      }
     }
+});
+
+socket.on('records', function (records) {
+    console.log(records);
+    app.records = records;
 });

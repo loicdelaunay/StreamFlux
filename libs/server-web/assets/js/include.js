@@ -9,7 +9,7 @@ $('#end-time').pickatime({});
 //Init MDB tooltip
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
-})
+});
 
 //Socket.io connection
-var socket = io();
+const socket = io();

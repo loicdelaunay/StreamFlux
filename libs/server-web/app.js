@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const http = require('http').Server(app);
+const io = require('socket.io')(http);
 const serverWebFolder = global.__root + '/libs/server-web/';
 const serverWebFolderViews = global.__root + '/libs/server-web/assets/views/';
 var default_download_forder = "";
@@ -22,11 +23,13 @@ app.use(bodyParser.json());
 app.post('/addRecord/',function(req,res){
     global.records.push(new global.class_record(req.body.url,req.body.quality,req.body.folder,req.body.startAt,req.body.endAt));
     global.module_datamanager.saveRecords();
+    io.emit('records', global.records);
     res.json("ok");
 });
 
 app.post('/removeRecord/',function(req,res){
     global.module_datamanager.removeRecords(req.body.uid);
+    io.emit('records', global.records);
     res.json("ok");
 });
 
@@ -69,9 +72,11 @@ http.listen(global.config.server_port, function(){
     console.log('listening on *:' + global.config.server_port);
 });
 
+//Gestion de socket.io
 io.on('connection', function(socket){
-    console.log('a user connected');
+    console.log('User connected');
+    io.emit('records', global.records);
     socket.on('disconnect', function(){
-        console.log('user disconnected');
+        console.log('User disconnected');
     });
 });

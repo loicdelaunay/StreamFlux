@@ -46,7 +46,7 @@ class commandSpawn{
         process.state = "loading";
 
         process.stdout.on('data', (data) => {
-            global.module_logmanager.addLog('Process ' + process.uid + ' : ' + data.toString())
+            global.module_logmanager.addLog('Process ' + process.uid + ' : ' + data.toString());
 
             //Try to get infos from process
             let args = data.toString().split(' ');
@@ -59,7 +59,7 @@ class commandSpawn{
         });
 
         process.stderr.on('data', (data) => {
-            global.module_logmanager.addLog('Process ' + process.uid + ' : ' + data.toString())
+            global.module_logmanager.addLog('Process ' + process.uid + ' : ' + data.toString());
 
             //Try to get infos from process
             let args = data.toString().split(' ');
@@ -77,7 +77,7 @@ class commandSpawn{
         });
 
         process.on('exit', (code) => {
-            global.module_logmanager.addLog('Process ' + process.uid + ' exited : ' + code.toString())
+            global.module_logmanager.addLog('Process ' + process.uid + ' exited : ' + code.toString());
         });
         return process;
     }
