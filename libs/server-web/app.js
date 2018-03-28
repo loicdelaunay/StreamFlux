@@ -44,9 +44,9 @@ app.get('/process', function(req, res) {
 });
 
 //Page records
-app.get('/setRecords', function(req, res) {
-    res.render(serverWebFolderViews + 'setRecords.ejs',{
-        page: "setRecords",
+app.get('/record-schedule', function(req, res) {
+    res.render(serverWebFolderViews + 'record-schedule.ejs',{
+        page: "record-schedule",
         records: global.records,
         defaultFolder : default_download_forder,
     });
