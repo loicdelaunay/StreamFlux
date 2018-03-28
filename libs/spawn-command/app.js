@@ -45,7 +45,7 @@ class commandSpawn{
         process.time = "loading ...";
         process.state = "loading";
 
-        process.stdout.on('data', (data) => {
+        process.consoleLog = function consoleLog(data){
             global.module_logmanager.addLog('Process ' + process.uid + ' : ' + data.toString());
 
             //Try to get infos from process
@@ -53,22 +53,14 @@ class commandSpawn{
 
             //Catch process error
             if(args[0] !== undefined && args[0] === "error:"){
-                this.setState(process.uid,"error",data);
-                this.removeProcess(process.uid);
+                global.module_spawncommand.setState(process.uid,"error",data);
+                global.module_spawncommand.removeProcess(process.uid);
             }
 
-            global.module_serverweb.processesUpdate();
-        });
-
-        process.stderr.on('data', (data) => {
-            global.module_logmanager.addLog('Process ' + process.uid + ' : ' + data.toString());
-
             //Try to get infos from process
-            let args = data.toString().split(' ');
-
             if(args[2] !== undefined && args[3] !== undefined){
                 process.size = args[2] + ' ' + args[3];
-                this.setState(process.uid,"running","process is actually recording")
+                global.module_spawncommand.setState(process.uid,"running","process is actually recording")
             }
             if(args[6] !== undefined && args[7] !== undefined){
                 process.speed = args[6] + ' ' + args[7].slice(0,args[7].length-1);
@@ -76,7 +68,7 @@ class commandSpawn{
             if(args[4] !== undefined ){
                 process.time = args[4].substr(1);
             }
-            if (args[0] == "Available" && args[1] == "streams:") {      //Catch available stream qualities
+            if (args[1] === "Available" && args[2] === "streams:") {      //Catch available stream qualities
                 let qualities = data.toString().substring(0, (args[0].length + args[1].length) - 1);
                 qualities = qualities.split(',');
                 qualities.forEach(function(quality){
@@ -85,6 +77,14 @@ class commandSpawn{
             }
 
             global.module_serverweb.processesUpdate();
+        };
+
+        //Catch process logs
+        process.stdout.on('data', (data) => {
+            process.consoleLog(data);
+        });
+        process.stderr.on('data', (data) => {
+            process.consoleLog(data);
         });
 
         process.on('exit', (code) => {
