@@ -94,6 +94,7 @@ class commandSpawn{
             if(unRecord.uid = uid){
                 unRecord.state = state;
                 unRecord.stateMessage = stateMessage;
+                recordsUpdate();
             }
         })
     }

@@ -5,78 +5,88 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const serverWebFolder = global.__root + '/libs/server-web/';
 const serverWebFolderViews = global.__root + '/libs/server-web/assets/views/';
-var default_download_forder = "";
-
+var default_download_folder = "";
 //Set download default folder with config file
-if(global.config.default_folder === "default"){
-    default_download_forder = global.__root + '\\data\\record\\'
-}else{
-    default_download_forder = global.config.default_folder
+if (global.config.default_folder === "default") {
+    default_download_folder = global.__root + '\\data\\record\\'
+} else {
+    default_download_folder = global.config.default_folder
 }
 
-//Configuration de express.js
-app.use(express.static(global.__root + '/libs/server-web/assets/'));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+class serverWeb {
+    constructor() {
 
-/** ROUTAGE DE BASE POST **/
-app.post('/addRecord/',function(req,res){
-    global.records.push(new global.class_record(req.body.url,req.body.quality,req.body.folder,req.body.startAt,req.body.endAt));
-    global.module_datamanager.saveRecords();
-    io.emit('records', global.records);
-    res.json("ok");
-});
+        //Configuration de express.js
+        app.use(express.static(global.__root + '/libs/server-web/assets/'));
+        app.use(bodyParser.urlencoded({extended: true}));
+        app.use(bodyParser.json());
 
-app.post('/removeRecord/',function(req,res){
-    global.module_datamanager.removeRecords(req.body.uid);
-    io.emit('records', global.records);
-    res.json("ok");
-});
+        /** ROUTAGE DE BASE POST **/
+        app.post('/addRecord/', function (req, res) {
+            global.records.push(new global.class_record(req.body.url, req.body.quality, req.body.folder, req.body.startAt, req.body.endAt));
+            global.module_datamanager.saveRecords();
+            io.emit('records', global.records);
+            res.json("ok");
+        });
 
-/** ROUTAGE DE BASE **/
-//Page accueil
-app.get('/', function(req, res) {
-    res.render(serverWebFolderViews + 'accueil.ejs',{page: "home"});
-});
+        app.post('/removeRecord/', function (req, res) {
+            global.module_datamanager.removeRecords(req.body.uid);
+            io.emit('records', global.records);
+            res.json("ok");
+        });
 
-//Page process
-app.get('/process', function(req, res) {
-    res.render(serverWebFolderViews + 'process.ejs',{
-        page: "process",
-        process: global.listProcess
-    });
-});
+        /** ROUTAGE DE BASE **/
+        //Page accueil
+        app.get('/', function (req, res) {
+            res.render(serverWebFolderViews + 'accueil.ejs', {page: "home"});
+        });
 
-//Page records
-app.get('/record-schedule', function(req, res) {
-    res.render(serverWebFolderViews + 'record-schedule.ejs',{
-        page: "record-schedule",
-        records: global.records,
-        defaultFolder : default_download_forder,
-    });
-});
+        //Page process
+        app.get('/process', function (req, res) {
+            res.render(serverWebFolderViews + 'process.ejs', {
+                page: "process",
+                process: global.listProcess
+            });
+        });
 
-//Page settings
-app.get('/settings', function(req, res) {
-    res.render(serverWebFolderViews + 'settings.ejs',{page: "settings"});
-});
+        //Page records
+        app.get('/record-schedule', function (req, res) {
+            res.render(serverWebFolderViews + 'record-schedule.ejs', {
+                page: "record-schedule",
+                records: global.records,
+                defaultFolder: default_download_folder,
+            });
+        });
 
-//Page introuvable
-app.use(function(req, res, next){
-    res.setHeader('Content-Type', 'text/plain');
-    res.status(404).send('Page introuvable !');
-});
+        //Page settings
+        app.get('/settings', function (req, res) {
+            res.render(serverWebFolderViews + 'settings.ejs', {page: "settings"});
+        });
 
-//Ecoute sur le port
-http.listen(global.config.server_port, function(){
-    console.log('listening on *:' + global.config.server_port);
-});
+        //Page introuvable
+        app.use(function (req, res, next) {
+            res.setHeader('Content-Type', 'text/plain');
+            res.status(404).send('Page introuvable !');
+        });
 
-//Gestion de socket.io
-io.on('connection', function(socket){
-    console.log('User connected');
-    io.emit('records', global.records);
-    socket.on('disconnect', function(){
-        console.log('User disconnected');
-    });
-});
+        //Ecoute sur le port
+        http.listen(global.config.server_port, function () {
+            console.log('listening on *:' + global.config.server_port);
+        });
+
+        //Gestion de socket.io
+        io.on('connection', function (socket) {
+            console.log('User connected');
+            global.module_serverweb.recordsUpdate();
+            socket.on('disconnect', function () {
+                console.log('User disconnected');
+            });
+        });
+
+    }
+    recordsUpdate(){
+        io.emit('records',global.records);
+    }
+}
+
+module.exports = new serverWeb();
