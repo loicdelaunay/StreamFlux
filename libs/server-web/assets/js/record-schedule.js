@@ -54,11 +54,6 @@ $('.remove-record').click(function () {
     })
 });
 
-//Init MDB tooltip
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-})
-
 var app = new Vue({
     el: " #app",
     data: {
