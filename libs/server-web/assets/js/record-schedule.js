@@ -54,7 +54,7 @@ var appRecord = new Vue({
     }
 });
 
-// socket.on('records', function (records) {
-//     console.log(records);
-//     appRecord.records = records;
-// });
+socket.on('records', function (records) {
+    console.log(records);
+    appRecord.records = records;
+});

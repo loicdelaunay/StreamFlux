@@ -99,7 +99,6 @@ class serverWeb {
 
         });
         io.emit('processes',listProcessInfo);
-        console.log(listProcessInfo);
     }
 }
 
