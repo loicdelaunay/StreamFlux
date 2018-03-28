@@ -101,7 +101,7 @@ class commandSpawn{
             if(unRecord.uid = uid){
                 unRecord.state = state;
                 unRecord.stateMessage = stateMessage;
-                recordsUpdate();
+                global.module_serverweb.recordsUpdate();
             }
         })
     }
