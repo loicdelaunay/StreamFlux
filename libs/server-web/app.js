@@ -42,10 +42,9 @@ class serverWeb {
         });
 
         //Page process
-        app.get('/process', function (req, res) {
+        app.get('/processes', function (req, res) {
             res.render(serverWebFolderViews + 'process.ejs', {
-                page: "process",
-                process: global.listProcess
+                page: "processes"
             });
         });
 
@@ -53,7 +52,6 @@ class serverWeb {
         app.get('/record-schedule', function (req, res) {
             res.render(serverWebFolderViews + 'record-schedule.ejs', {
                 page: "record-schedule",
-                records: global.records,
                 defaultFolder: default_download_folder,
             });
         });
@@ -86,6 +84,22 @@ class serverWeb {
     }
     recordsUpdate(){
         io.emit('records',global.records);
+    }
+
+    processesUpdate(){
+        let listProcessInfo = [];
+        global.listProcess.forEach(function(unProcess){
+            let processInfo = {
+                size:    unProcess.size,
+                speed:    unProcess.speed,
+                time:    unProcess.time,
+                url:    unProcess.url
+            };
+            listProcessInfo.push(processInfo);
+
+        });
+        io.emit('processes',listProcessInfo);
+        console.log(listProcessInfo);
     }
 }
 

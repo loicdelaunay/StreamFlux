@@ -56,6 +56,8 @@ class commandSpawn{
                 this.setState(process.uid,"error",data);
                 this.removeProcess(process.uid);
             }
+
+            global.module_serverweb.processesUpdate();
         });
 
         process.stderr.on('data', (data) => {
@@ -81,11 +83,15 @@ class commandSpawn{
                     quality.replace(/ *\([^)]*\) */g, "");
                 })
             }
+
+            global.module_serverweb.processesUpdate();
         });
 
         process.on('exit', (code) => {
             global.module_logmanager.addLog('Process ' + process.uid + ' exited : ' + code.toString());
+            global.module_serverweb.processesUpdate();
         });
+
         return process;
     }
 

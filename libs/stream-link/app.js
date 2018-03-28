@@ -22,7 +22,8 @@ class streamlink {
                     }
                 }
 
-            })
+            });
+
         }, null, true);
     }
 

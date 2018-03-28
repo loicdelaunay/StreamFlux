@@ -29,8 +29,8 @@ $("#btn-post").click(function () {
 });
 
 //Table management
-var app = new Vue({
-    el: " #app",
+var appRecord = new Vue({
+    el: " #app-record",
     data: {
         records: [],
     },
@@ -54,7 +54,7 @@ var app = new Vue({
     }
 });
 
-socket.on('records', function (records) {
-    console.log(records);
-    app.records = records;
-});
+// socket.on('records', function (records) {
+//     console.log(records);
+//     appRecord.records = records;
+// });
