@@ -35,7 +35,7 @@
             <td>{{ record.folder }}</td>
             <td>{{ record.startAt }}</td>
             <td>{{ record.endAt }}</td>
-            <td data-toggle="tooltip" data-placement="bottom" :title="record.stateMessage">{{ record.state }}</td>
+            <td data-toggle="tooltip" data-placement="bottom" v-bind:title="record.stateMessage">{{ record.state }}</td>
             <td>
                 <a class="badge badge-pill danger-color remove-record" v-on:click="removeRecord(record.uid)"><i
                         class="fas fa-trash-alt fa-2x"></i></a>
