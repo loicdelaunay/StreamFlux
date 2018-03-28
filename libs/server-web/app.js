@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const http = require('http').Server(app);
 const serverWebFolder = global.__root + '/libs/server-web/';
 const serverWebFolderViews = global.__root + '/libs/server-web/assets/views/';
 var default_download_forder = "";
@@ -64,4 +65,6 @@ app.use(function(req, res, next){
 });
 
 //Ecoute sur le port
-app.listen(global.config.server_port);
+http.listen(global.config.server_port, function(){
+    console.log('listening on *:' + global.config.server_port);
+});

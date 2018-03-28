@@ -58,3 +58,11 @@ $('.remove-record').click(function () {
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
+
+var app = new Vue({
+    el: " #app",
+    data: {
+        records: [],
+        test: "vuejs ok"
+    }
+});
