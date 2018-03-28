@@ -45,6 +45,7 @@ class commandSpawn{
         process.time = "loading ...";
         process.state = "loading";
 
+        //Catch process logs
         process.consoleLog = function consoleLog(data){
             global.module_logmanager.addLog('Process ' + process.uid + ' : ' + data.toString());
 
