@@ -74,6 +74,14 @@ class commandSpawn{
             if(args[4] !== undefined ){
                 process.time = args[4].substr(1);
             }
+            if (args[0] == "Available" && args[1] == "streams:") {      //Catch available stream qualities
+                var qualities = data.toString().substring(0, (args[0].length + args[1].length) - 1);
+                qualities = sub.split(',');
+                for (var aQuality in qualities) {
+                    aQuality.replace(/ *\([^)]*\) */g, "");     //Filter and remove "(best)" and "(worst)" brackets
+                }
+                process.qualities
+            }
         });
 
         process.on('exit', (code) => {
