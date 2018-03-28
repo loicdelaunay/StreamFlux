@@ -44,7 +44,7 @@ var appRecord = new Vue({
                   uid: uid,
               },
               error: function (data) {
-                  toastr['error']('error in deleting ! : ' + data.responseText);
+                  toastr['error']('error in deleting ! : ' + data.statusText);
               },
               success: function (data) {
                   toastr['success']('record setting deleted !');
