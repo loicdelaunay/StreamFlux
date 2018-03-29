@@ -70,11 +70,13 @@ class commandSpawn{
                 process.time = args[4].substr(1);
             }
             if (args[1] === "Available" && args[2] === "streams:") {      //Catch available stream qualities
-                let qualities = data.toString().substring(0, (args[0].length + args[1].length) - 1);
-                qualities = qualities.split(',');
+                var qualities = data.toString().substring(30, data.length - 30);
+                qualities = qualities.split('\r\n');
+                qualities = qualities[0].split(',');
                 qualities.forEach(function(quality){
-                    quality.replace(/ *\([^)]*\) */g, "");
+                    quality = quality.replace(/ *\([^)]*\) */g, "");
                 });
+                process.qualities = qualities;
             }
 
             global.module_serverweb.processesUpdate();
