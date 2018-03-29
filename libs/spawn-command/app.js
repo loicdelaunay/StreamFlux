@@ -74,7 +74,7 @@ class commandSpawn{
                 qualities = qualities.split(',');
                 qualities.forEach(function(quality){
                     quality.replace(/ *\([^)]*\) */g, "");
-                })
+                });
             }
 
             global.module_serverweb.processesUpdate();
