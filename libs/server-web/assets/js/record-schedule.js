@@ -6,6 +6,8 @@ $("#btn-post").click(function () {
     let startAt = $("#start-time").val();
     let endAt = $("#end-time").val();
 
+    console.log(quality);
+
     //control data
     if(url === ""){
         toastr['error']('please add a valid url!');
