@@ -73,9 +73,12 @@ class commandSpawn{
                 var qualities = data.toString().substring(30, data.length - 30);
                 qualities = qualities.split('\r\n');
                 qualities = qualities[0].split(',');
-                qualities.forEach(function(quality){
-                    quality = quality.replace(/ *\([^)]*\) */g, "");
-                });
+                for (var i = 0; i < qualities.length; i++) {    //Filter qualities
+                    qualities[i] = qualities[i].replace(/ *\([^)]*\) */g, "");
+                }
+                if (qualities[0] === " audio_only") {   //Remove Audio Only
+                    qualities = qualities.splice(1, qualities.length - 1);
+                }
                 process.qualities = qualities;
             }
 
