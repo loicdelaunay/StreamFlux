@@ -27,13 +27,17 @@
                     <!--Title-->
                     <h4 class="card-title">{{process.url}}</h4>
 
-                    <!--Text-->
-                    <p class="card-text">Informations :.</p>
-                    <span class="badge cyan"><i class="fas fa-hdd"></i> Size : {{process.size}}</span>
-                    <span class="badge purple "><i class="fas fa-cloud-download-alt"></i> Speed : {{process.speed}}</span>
-                    <span class="badge indigo"><i class="fas fa-clock"></i> Recording time : {{process.time}}</span>
+                    <p>Quality : {{process.quality}}</p>
+                    <p>Folder : {{process.folder}}</p>
+                    <p>Start At : {{process.startAt}}</p>
+                    <p>End At : {{process.endAt}}</p>
+                    <p>State : {{process.stateMessage}}</p>
 
-                    <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+
+                    <span class="badge badge-pill orange"><i class="fas fa-hdd"></i> Size : {{process.size}}</span>
+                    <span class="badge badge-pill purple"><i class="fas fa-cloud-download-alt"></i> Speed : {{process.speed}}</span>
+                    <span class="badge badge-pill green"><i class="fas fa-clock"></i> Recording time : {{process.time}}</span>
+
                 </div>
                 <!--Card content-->
             </div>

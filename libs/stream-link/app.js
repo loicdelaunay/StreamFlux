@@ -44,11 +44,23 @@ class streamlink {
             fileToSave = unRecord.folder.replace(/\.[^.$]+$/, '') + Date.now() + ".mp4";
         }
 
+        //get position of the process
+        let indexProcess = global.listProcess.length;
+
         //Execute stream link command in a child process contained in NodeJS
         global.listProcess.push(global.module_spawncommand.execStreamLink(
             global.streamlinkexec + ' ' + unRecord.url + ' ' + unRecord.quality + ' ' + '-o ' + fileToSave,
             unRecord.uid
         ));
+
+        //Add informations in process
+        global.listProcess[indexProcess].url = unRecord.url;
+        global.listProcess[indexProcess].quality = unRecord.quality;
+        global.listProcess[indexProcess].startAt = unRecord.startAt;
+        global.listProcess[indexProcess].endAt = unRecord.endAt;
+        global.listProcess[indexProcess].state = unRecord.state;
+        global.listProcess[indexProcess].stateMessage = unRecord.stateMessage;
+        global.listProcess[indexProcess].folder = unRecord.folder;
 
         //Write process state in record
         index = global.listProcess.length-1;

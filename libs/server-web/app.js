@@ -93,7 +93,14 @@ class serverWeb {
                 size:    unProcess.size,
                 speed:    unProcess.speed,
                 time:    unProcess.time,
-                url:    unProcess.url
+                url:    unProcess.url,
+                uid:    unProcess.uid,
+                startAt: unProcess.startAt,
+                endAt: unProcess.endAt,
+                state: unProcess.state,
+                stateMessage: unProcess.stateMessage,
+                folder: unProcess.folder,
+                quality: unProcess.quality,
             };
             listProcessInfo.push(processInfo);
 

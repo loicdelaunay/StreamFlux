@@ -1,5 +1,6 @@
 /**
- * Class process manager
+ * Class command spawn
+ * Manage process from nodeJS
  */
 class commandSpawn{
     constructor(){
