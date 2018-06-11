@@ -11,7 +11,7 @@ $("#btn-post").click(function () {
         toastr['error']('please add a valid url!');
     }
 
-    else if(quality === ""){
+    else if(quality === "" || quality === "Quality"){
         toastr['error']('please add a valid quality!');
     }
 
