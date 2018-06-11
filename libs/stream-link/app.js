@@ -46,7 +46,7 @@ class streamlink {
 
         //Execute stream link command in a child process contained in NodeJS
         global.listProcess.push(global.module_spawncommand.execStreamLink(
-            global.streamlinkexec + ' ' + unRecord.url + ' ' + unRecord.quality + ' ' + '-o ' + fileToSave,
+            global.streamlinkexec + ' ' + unRecord.url + ' ' + unRecord.quality + ' ' + '-o ' + "\"" + fileToSave + "\"",
             unRecord.uid
         ));
 

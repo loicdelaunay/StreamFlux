@@ -10,7 +10,7 @@ global.version = 0.1;
 require(__dirname + '/libs/autoloader/app');
 
 //lien vers l'executable, actuellement que windows
-global.streamlinkexec = __dirname + "/libs/stream-link/win/streamlink.exe";
+global.streamlinkexec = "\"" + __dirname + "/libs/stream-link/win/streamlink.exe" + "\"";
 
 global.module_logmanager.addLog("-*-*-*-*- Welcome to StreamingFlux :) -*-*-*-*-*-");
 global.module_logmanager.addLog(" -* Program version : "+ global.version + " *- ");
