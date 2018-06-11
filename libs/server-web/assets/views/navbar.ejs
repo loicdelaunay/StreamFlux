@@ -1,67 +1,57 @@
-<!--Main Navigation-->
+<body class="fixed-sn white-skin">
+
 <header>
-
-    <!-- Navbar -->
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
-        <div class="container-fluid">
-
-            <!-- Brand -->
-            <a class="navbar-brand waves-effect" href="/">
-                <strong class="blue-text">StreamEater</strong>
+    <!-- Sidebar navigation -->
+    <div id="slide-out" class="side-nav fixed mdb-sidenav">
+        <ul>
+            <!-- Logo -->
+            <a class="mt-md-5 mb-md-5 mb-sm-3 mt-sm-3 waves-effect">
+                <img src="/img/logo.png" class="img-fluid" alt="">
             </a>
+            <!--/. Logo -->
+            <div class="list-group list-group-flush">
 
-            <!-- Collapse -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+                <!-- Side navigation links -->
+                <a href="/" class="list-group-item waves-effect <% if (page === "home") { %> <%= "active" %> <% } %>">
+                    <i class="fas fa-home mr-3 ml-2"></i>Home
+                </a>
 
-            <!-- Links -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <a href="/record-schedule"
+                   class="list-group-item waves-effect <% if (page === "record-schedule") { %> <%= "active" %> <% } %>">
+                    <i class="fas fa-video mr-3 ml-2"></i>Records schedule
+                </a>
+
+                <a href="/processes"
+                   class="list-group-item waves-effect <% if (page === "processes") { %> <%= "active" %> <% } %>">
+                    <i class="fas fa-spinner mr-3 ml-2"></i>Processes
+                </a>
+
+                <a href="/settings"
+                   class="list-group-item waves-effect <% if (page === "settings") { %> <%= "active" %> <% } %>">
+                    <i class="fa fa-cog mr-3 ml-2"></i>Settings
+                </a>
 
             </div>
+            <!--/. Side navigation links -->
 
+        </ul>
+        <div class="sidenav-bg mask-strong"></div>
+    </div>
+    <!--/. Sidebar navigation -->
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav">
+        <!-- SideNav slide-out button -->
+        <div class="float-left">
+            <a href="#" data-activates="slide-out" class="button-collapse"><i class="fa fa-bars"></i></a>
+        </div>
+        <!-- Breadcrumb-->
+        <div class="breadcrumb-dn mr-auto">
+            <p>StreamEater</p>
         </div>
     </nav>
-    <!-- Navbar -->
-
-    <!-- Sidebar -->
-    <div class="sidebar-fixed position-fixed">
-
-        <a class="logo-wrapper waves-effect">
-            <img src="/img/logo.png" class="img-fluid" alt="">
-        </a>
-
-        <div class="list-group list-group-flush">
-            <a href="/" class="list-group-item waves-effect <% if (page === "home") { %> <%= "active" %> <% } %>">
-                <i class="fas fa-home mr-3"></i>Home
-            </a>
-        </div>
-        <div class="list-group list-group-flush">
-            <a href="/record-schedule"
-               class="list-group-item waves-effect <% if (page === "record-schedule") { %> <%= "active" %> <% } %>">
-                <i class="fas fa-video mr-3"></i>Records schedule
-            </a>
-        </div>
-        <div class="list-group list-group-flush">
-            <a href="/processes"
-               class="list-group-item waves-effect <% if (page === "processes") { %> <%= "active" %> <% } %>">
-                <i class="fas fa-spinner mr-3"></i>Processes
-            </a>
-        </div>
-        <div class="list-group list-group-flush">
-            <a href="/settings"
-               class="list-group-item waves-effect <% if (page === "settings") { %> <%= "active" %> <% } %>">
-                <i class="fa fa-cog mr-3"></i>Settings
-            </a>
-        </div>
-
-    </div>
-    <!-- Sidebar -->
-
+    <!-- /.Navbar -->
 </header>
-<!--Main Navigation-->
+<!--/.Double navigation-->
 
 <!--Main layout-->
 <main class="pt-5 mx-lg-5">

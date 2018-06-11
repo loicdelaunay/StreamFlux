@@ -30,5 +30,9 @@ toastr.options = {
     "hideMethod": "fadeOut"
 }
 
+//Init sidenav
+// SideNav Initialization
+$(".button-collapse").sideNav();
+
 //Socket.io connection
 const socket = io();
