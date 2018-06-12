@@ -17,15 +17,15 @@ class commandSpawn{
         let process = global.module_childprocess.exec(command);
 
         process.stdout.on('data', (data) => {
-            global.module_logmanager.addLog('Sub-Process log -> ' + process.uid + ' : ' + data.toString())
+            global.module_logmanager.addLogStreamLink('Sub-Process log -> ' + process.uid + ' : ' + data.toString())
         });
 
         process.stderr.on('data', (data) => {
-            global.module_logmanager.addLog('Sub-Process error -> ' + process.uid + ' : ' + data.toString())
+            global.module_logmanager.addLogStreamLink('Sub-Process error -> ' + process.uid + ' : ' + data.toString())
         });
 
         process.on('exit', (code) => {
-            global.module_logmanager.addLog('Sub-Process exit -> ' + process.uid + ' : ' + code.toString())
+            global.module_logmanager.addLogStreamLink('Sub-Process exit -> ' + process.uid + ' : ' + code.toString())
         });
         return process;
     }
@@ -48,7 +48,7 @@ class commandSpawn{
 
         //Catch process logs
         process.consoleLog = function consoleLog(data){
-            global.module_logmanager.addLog('Process ' + process.uid + ' : ' + data.toString());
+            global.module_logmanager.addLogStreamLink('Process ' + process.uid + ' : ' + data.toString());
 
             //Try to get infos from process
             let args = data.toString().split(' ');

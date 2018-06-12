@@ -1,0 +1,177 @@
+<% include header %>
+<% include navbar %>
+
+<div>
+    <h1>Logs</h1>
+</div>
+
+<!-- Nav tabs -->
+<div id="app-logs" class="row">
+    <div class="col-md-3">
+        <ul class="nav  md-pills pills-primary flex-column" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#panel-all" role="tab">All <span class="badge badge-primary">{{logsAll.length}}</span></h6>
+                    <i class="fas fa-tasks"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#panel-user" role="tab">User <span class="badge badge-primary">{{logsUser.length}}</span></h6>
+                    <i class="fas fa-users"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#panel-streamlink" role="tab">Process <span class="badge badge-primary">{{logsStreamLink.length}}</span></h6>
+                    <i class="fas fa-spinner"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#panel-error" role="tab">Error <span class="badge badge-danger">{{logsError.length}}</span></h6>
+                    <i class="fas fa-exclamation-triangle"></i>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Checkbox -->
+        <div class="form-check mb-2 mr-sm-2 mt-4">
+            <input v-model="autoScroll" class="form-check-input" type="checkbox" id="autoscroll">
+            <label class="form-check-label" for="autoscroll">
+                Autoscroll
+            </label>
+        </div>
+
+    </div>
+
+    <div class="col-md-9">
+        <!-- Tab panels -->
+        <div class="tab-content vertical">
+            <!--Panel 1-->
+            <div class="tab-pane fade in show active" id="panel-all" role="tabpanel">
+                <div id="panel-all-autoscroll" class="card scrollbar-logs scrollbar-blue">
+                    <div class="card-body">
+                        <h4 id="section1"><strong>All logs</strong></h4>
+                        <!--Table-->
+                        <table class="table table-bordered table-hover">
+                            <!--Table head-->
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Message</th>
+                            </tr>
+                            </thead>
+                            <!--Table head-->
+                            <!--Table body-->
+                            <tbody>
+                            <tr v-for="(value, key, index) in logsAll">
+                                <th scope="row">{{key}}</th>
+                                <td>soon</td>
+                                <td>{{value}}</td>
+                            </tr>
+                            </tbody>
+                            <!--Table body-->
+
+                        </table>
+                        <!--Table-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="panel-user" role="tabpanel">
+                <div id="panel-user-autoscroll" class="card scrollbar-logs scrollbar-blue">
+                    <div class="card-body">
+                        <h4 id="section1"><strong>Users logs</strong></h4>
+                        <!--Table-->
+                        <table class="table table-bordered table-hover">
+                            <!--Table head-->
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Message</th>
+                            </tr>
+                            </thead>
+                            <!--Table head-->
+                            <!--Table body-->
+                            <tbody>
+                            <tr v-for="(value, key, index) in logsUser">
+                                <th scope="row">{{key}}</th>
+                                <td>soon</td>
+                                <td>{{value}}</td>
+                            </tr>
+                            </tbody>
+                            <!--Table body-->
+
+                        </table>
+                        <!--Table-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="panel-streamlink" role="tabpanel">
+                <div id="panel-streamlink-autoscroll" class="card scrollbar-logs scrollbar-blue">
+                    <div class="card-body">
+                        <h4 id="section1"><strong>Processes logs</strong></h4>
+                        <!--Table-->
+                        <table class="table table-bordered table-hover">
+                            <!--Table head-->
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Message</th>
+                            </tr>
+                            </thead>
+                            <!--Table head-->
+                            <!--Table body-->
+                            <tbody>
+                            <tr v-for="(value, key, index) in logsStreamLink">
+                                <th scope="row">{{key}}</th>
+                                <td>soon</td>
+                                <td>{{value}}</td>
+                            </tr>
+                            </tbody>
+                            <!--Table body-->
+
+                        </table>
+                        <!--Table-->
+                    </div>
+                </div>
+            </div>
+
+            <div id="panel-error-autoscroll" class="tab-pane fade" id="panel-error" role="tabpanel">
+                <div class="card scrollbar-logs scrollbar-blue">
+                    <div class="card-body">
+                        <h4 id="section1"><strong>Errors logs</strong></h4>
+                        <!--Table-->
+                        <table class="table table-bordered table-hover">
+                            <!--Table head-->
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Message</th>
+                            </tr>
+                            </thead>
+                            <!--Table head-->
+                            <!--Table body-->
+                            <tbody>
+                            <tr v-for="(value, key, index) in logsError">
+                                <th scope="row">{{key}}</th>
+                                <td>soon</td>
+                                <td>{{value}}</td>
+                            </tr>
+                            </tbody>
+                            <!--Table body-->
+
+                        </table>
+                        <!--Table-->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Nav tabs -->
+
+<% include footer %>

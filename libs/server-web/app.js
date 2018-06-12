@@ -48,6 +48,13 @@ class serverWeb {
             });
         });
 
+        //Page logs
+        app.get('/logs', function (req, res) {
+            res.render(serverWebFolderViews + 'logs.ejs', {
+                page: "logs"
+            });
+        });
+
         //Page records
         app.get('/record-schedule', function (req, res) {
             res.render(serverWebFolderViews + 'record-schedule.ejs', {
@@ -69,32 +76,40 @@ class serverWeb {
 
         //Ecoute sur le port
         http.listen(global.config.server_port, function () {
-            console.log('listening on *:' + global.config.server_port);
+            global.module_logmanager.addLog('listening on *:' + global.config.server_port);
         });
 
         //Gestion de socket.io
         io.on('connection', function (socket) {
-            console.log('User connected');
+            global.module_logmanager.addLogUser('User connected');
             global.module_serverweb.recordsUpdate();
             socket.on('disconnect', function () {
-                console.log('User disconnected');
+                global.module_logmanager.addLogUser('User disconnected');
             });
         });
 
     }
-    recordsUpdate(){
-        io.emit('records',global.records);
+
+    recordsUpdate() {
+        io.emit('records', global.records);
     }
 
-    processesUpdate(){
+    logsUpdate() {
+        io.emit('logsAll', global.module_logmanager.log);
+        io.emit('logsUser', global.module_logmanager.log.user);
+        io.emit('logsStreamLink', global.module_logmanager.log.streamLink);
+        io.emit('logsError', global.module_logmanager.log.error);
+    }
+
+    processesUpdate() {
         let listProcessInfo = [];
-        global.listProcess.forEach(function(unProcess){
+        global.listProcess.forEach(function (unProcess) {
             let processInfo = {
-                size:    unProcess.size,
-                speed:    unProcess.speed,
-                time:    unProcess.time,
-                url:    unProcess.url,
-                uid:    unProcess.uid,
+                size: unProcess.size,
+                speed: unProcess.speed,
+                time: unProcess.time,
+                url: unProcess.url,
+                uid: unProcess.uid,
                 startAt: unProcess.startAt,
                 endAt: unProcess.endAt,
                 state: unProcess.state,
@@ -105,7 +120,7 @@ class serverWeb {
             listProcessInfo.push(processInfo);
 
         });
-        io.emit('processes',listProcessInfo);
+        io.emit('processes', listProcessInfo);
     }
 }
 
