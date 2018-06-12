@@ -35,10 +35,23 @@ class serverWeb {
             res.json("ok");
         });
 
+        app.post('/getVideos/', function (req, res) {
+            let files = global.module_filesystem.readdirSync("D:\\MesProjets\\GuillaumeAide\\app\\libs\\server-web\\assets\\data\\videos");
+            console.log(files);
+            res.json(files);
+        });
+
         /** ROUTAGE DE BASE **/
         //Page accueil
         app.get('/', function (req, res) {
             res.render(serverWebFolderViews + 'accueil.ejs', {page: "home"});
+        });
+
+        //Page process
+        app.get('/player', function (req, res) {
+            res.render(serverWebFolderViews + 'player.ejs', {
+                page: "player"
+            });
         });
 
         //Page process

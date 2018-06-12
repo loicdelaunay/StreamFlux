@@ -13,29 +13,29 @@ class logManager{
 
 
      addLog(msg){
-        console.log(msg);
-        this.log.push(msg);
-        this.sendServerWebUpdate();
+        console.log(this.logFormat(msg));
+        this.log.push(this.logFormat(msg));
+        this.sendServerWebUpdate(this.logFormat(msg));
     }
 
     addLogUser(msg){
-        console.log(msg);
-        this.log.push(msg);
-        this.log.user.push(msg);
+        console.log(this.logFormat(msg));
+        this.log.push(this.logFormat(msg));
+        this.log.user.push(this.logFormat(msg));
         this.sendServerWebUpdate();
     }
 
     addLogStreamLink(msg){
-        console.log(msg);
-        this.log.push(msg);
-        this.log.streamLink.push(msg);
+        console.log(this.logFormat(msg));
+        this.log.push(this.logFormat(msg));
+        this.log.streamLink.push(this.logFormat(msg));
         this.sendServerWebUpdate();
     }
 
     addLogError(msg){
-        console.error(msg);
-        this.log.push(msg);
-        this.log.error.push(msg);
+        console.error(this.logFormat(msg));
+        this.log.push(this.logFormat(msg));
+        this.log.error.push(this.logFormat(msg));
         this.sendServerWebUpdate();
     }
 
@@ -45,6 +45,15 @@ class logManager{
         }catch (e) {
             return
         }
+    }
+
+    logFormat(msg){
+        return "<" + this.getDate() + "> " + msg;
+    }
+
+    getDate(){
+        let d = new Date(Date.now()).toLocaleString();
+        return d;
     }
 }
 

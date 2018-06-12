@@ -64,8 +64,8 @@
                             <tbody>
                             <tr v-for="(value, key, index) in logsAll">
                                 <th scope="row">{{key}}</th>
-                                <td>soon</td>
-                                <td>{{value}}</td>
+                                <td>{{logGetDate(value)}}</td>
+                                <td>{{logGetMessage(value)}}</td>
                             </tr>
                             </tbody>
                             <!--Table body-->
