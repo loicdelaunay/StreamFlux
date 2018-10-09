@@ -6,7 +6,8 @@ const io = require('socket.io')(http);
 const serverWebFolder = global.__root + '/libs/server-web/';
 const serverWebFolderViews = global.__root + '/libs/server-web/assets/views/';
 var default_download_folder = "";
-//Set download default folder with config file
+
+// Set download default folder according to the config file
 if (global.config.default_folder === "default") {
     default_download_folder = global.__root + '\\data\\record\\'
 } else {
@@ -16,12 +17,12 @@ if (global.config.default_folder === "default") {
 class serverWeb {
     constructor() {
 
-        //Configuration de express.js
+        // Express Js configuration
         app.use(express.static(global.__root + '/libs/server-web/assets/'));
         app.use(bodyParser.urlencoded({extended: true}));
         app.use(bodyParser.json());
 
-        /** ROUTAGE DE BASE POST **/
+        /** EXPRESS JS ROUTE**/
         app.post('/addRecord/', function (req, res) {
             global.records.push(new global.class_record(req.body.url, req.body.quality, req.body.folder, req.body.startAt, req.body.endAt));
             global.module_datamanager.saveRecords();
@@ -81,13 +82,13 @@ class serverWeb {
             res.render(serverWebFolderViews + 'settings.ejs', {page: "settings"});
         });
 
-        //Page introuvable
+        // Can't find the page
         app.use(function (req, res, next) {
             res.setHeader('Content-Type', 'text/plain');
             res.status(404).send('Page introuvable !');
         });
 
-        //Ecoute sur le port
+        // Listening on port
         http.listen(global.config.server_port, function () {
             global.module_logmanager.addLog('listening on *:' + global.config.server_port);
         });
@@ -107,6 +108,9 @@ class serverWeb {
         io.emit('records', global.records);
     }
 
+    /***
+     * Send logs at clients with websocket
+     */
     logsUpdate() {
         io.emit('logsAll', global.module_logmanager.log);
         io.emit('logsUser', global.module_logmanager.log.user);
@@ -116,19 +120,19 @@ class serverWeb {
 
     processesUpdate() {
         let listProcessInfo = [];
-        global.listProcess.forEach(function (unProcess) {
+        global.listProcess.forEach(function (process) {
             let processInfo = {
-                size: unProcess.size,
-                speed: unProcess.speed,
-                time: unProcess.time,
-                url: unProcess.url,
-                uid: unProcess.uid,
-                startAt: unProcess.startAt,
-                endAt: unProcess.endAt,
-                state: unProcess.state,
-                stateMessage: unProcess.stateMessage,
-                folder: unProcess.folder,
-                quality: unProcess.quality,
+                size: process.size,
+                speed: process.speed,
+                time: process.time,
+                url: process.url,
+                uid: process.uid,
+                startAt: process.startAt,
+                endAt: process.endAt,
+                state: process.state,
+                stateMessage: process.stateMessage,
+                folder: process.folder,
+                quality: process.quality,
             };
             listProcessInfo.push(processInfo);
 
