@@ -36,7 +36,7 @@ class serverWeb {
         });
 
         app.post('/getVideos/', function (req, res) {
-            let files = global.module_filesystem.readdirSync("D:\\MesProjets\\GuillaumeAide\\app\\libs\\server-web\\assets\\data\\videos");
+            let files = global.module_filesystem.readdirSync(global.__root + "\\libs\\server-web\\assets\\data\\videos");
             console.log(files);
             res.json(files);
         });
