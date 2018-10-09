@@ -1366,8 +1366,8 @@ a:not([href]):not([tabindex]), a:not([href]):not([tabindex]):focus, a:not([href]
   color: inherit;
   text-decoration: none; }
 
-.img-fluid, .modal-dialog.cascading-modal.modal-avatar .modal-header, .section-blog-fw .view img,
-.video-fluid {
+.img-flUID, .modal-dialog.cascading-modal.modal-avatar .modal-header, .section-blog-fw .view img,
+.video-flUID {
   max-width: 100%;
   height: auto; }
 
@@ -6725,10 +6725,10 @@ body.scrollable {
       bottom: auto; }
       .modal.modal-content-clickable .modal-dialog {
         position: fixed; }
-    .modal .modal-fluid {
+    .modal .modal-flUID {
       width: 100%;
       max-width: 100%; }
-      .modal .modal-fluid .modal-content {
+      .modal .modal-flUID .modal-content {
         width: 100%; }
     .modal .modal-frame {
       position: absolute;
@@ -7135,7 +7135,7 @@ body.scrollable {
 footer.page-footer {
   bottom: 0;
   color: #fff; }
-  footer.page-footer .container-fluid {
+  footer.page-footer .container-flUID {
     width: auto; }
   footer.page-footer .footer-copyright {
     overflow: hidden;
@@ -9389,7 +9389,7 @@ a.pswp__share--download:hover {
 .mdb-lightbox figure {
   margin: 0;
   float: left; }
-  .mdb-lightbox figure .img-fluid, .mdb-lightbox figure .modal-dialog.cascading-modal.modal-avatar .modal-header, .modal-dialog.cascading-modal.modal-avatar .mdb-lightbox figure .modal-header, .mdb-lightbox figure .section-blog-fw .view img, .section-blog-fw .view .mdb-lightbox figure img {
+  .mdb-lightbox figure .img-flUID, .mdb-lightbox figure .modal-dialog.cascading-modal.modal-avatar .modal-header, .modal-dialog.cascading-modal.modal-avatar .mdb-lightbox figure .modal-header, .mdb-lightbox figure .section-blog-fw .view img, .section-blog-fw .view .mdb-lightbox figure img {
     display: inline; }
   .mdb-lightbox figure img {
     cursor: -webkit-zoom-in;
@@ -15589,19 +15589,19 @@ button.toast-close-button {
 
 @media (min-width: 600px) {
   .fixed-sn main,
-  .fixed-sn .page-footer .container-fluid {
+  .fixed-sn .page-footer .container-flUID {
     margin-left: 2%;
     margin-right: 2%; } }
 
 @media (min-width: 992px) {
   .fixed-sn main,
-  .fixed-sn .page-footer .container-fluid {
+  .fixed-sn .page-footer .container-flUID {
     margin-left: 5%;
     margin-right: 5%; } }
 
 @media (min-width: 1200px) {
   .fixed-sn main,
-  .fixed-sn .page-footer .container-fluid {
+  .fixed-sn .page-footer .container-flUID {
     margin-left: 6%;
     margin-right: 6%; } }
 

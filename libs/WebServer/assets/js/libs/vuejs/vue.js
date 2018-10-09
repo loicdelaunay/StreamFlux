@@ -381,7 +381,7 @@ var config = ({
   devtools: "development" !== 'production',
 
   /**
-   * Whether to record perf
+   * Whether to recorder perf
    */
   performance: false,
 
@@ -671,14 +671,14 @@ var formatComponentName = (noop);
 /*  */
 
 
-var uid = 0;
+var UID = 0;
 
 /**
  * A dep is an observable that can have multiple
  * directives subscribing to it.
  */
 var Dep = function Dep () {
-  this.id = uid++;
+  this.id = UID++;
   this.subs = [];
 };
 
@@ -1903,7 +1903,7 @@ var initProxy;
       'referenced during render. Make sure that this property is reactive, ' +
       'either in the data option, or for class-based components, by ' +
       'initializing the property. ' +
-      'See: https://vuejs.org/v2/guide/reactivity.html#Declaring-Reactive-Properties.',
+      'See: https://vuejs.org/v2/gUIDe/reactivity.html#Declaring-Reactive-Properties.',
       target
     );
   };
@@ -2769,7 +2769,7 @@ function mountComponent (
   if ("development" !== 'production' && config.performance && mark) {
     updateComponent = function () {
       var name = vm._name;
-      var id = vm._uid;
+      var id = vm._UID;
       var startTag = "vue-perf-start:" + id;
       var endTag = "vue-perf-end:" + id;
 
@@ -3072,7 +3072,7 @@ function queueWatcher (watcher) {
 
 /*  */
 
-var uid$1 = 0;
+var UID$1 = 0;
 
 /**
  * A watcher parses an expression, collects dependencies,
@@ -3101,7 +3101,7 @@ var Watcher = function Watcher (
     this.deep = this.user = this.lazy = this.sync = false;
   }
   this.cb = cb;
-  this.id = ++uid$1; // uid for batching
+  this.id = ++UID$1; // UID for batching
   this.active = true;
   this.dirty = this.lazy; // for lazy watchers
   this.deps = [];
@@ -3373,7 +3373,7 @@ function initData (vm) {
     data = {};
     "development" !== 'production' && warn(
       'data functions should return an object:\n' +
-      'https://vuejs.org/v2/guide/components.html#data-Must-Be-a-Function',
+      'https://vuejs.org/v2/gUIDe/components.html#data-Must-Be-a-Function',
       vm
     );
   }
@@ -3976,7 +3976,7 @@ function FunctionalRenderContext (
   // ensure the createElement function in functional components
   // gets a unique context - this is necessary for correct named slot check
   var contextVm;
-  if (hasOwn(parent, '_uid')) {
+  if (hasOwn(parent, '_UID')) {
     contextVm = Object.create(parent);
     // $flow-disable-line
     contextVm._original = parent;
@@ -4570,19 +4570,19 @@ function renderMixin (Vue) {
 
 /*  */
 
-var uid$3 = 0;
+var UID$3 = 0;
 
 function initMixin (Vue) {
   Vue.prototype._init = function (options) {
     var vm = this;
-    // a uid
-    vm._uid = uid$3++;
+    // a UID
+    vm._UID = UID$3++;
 
     var startTag, endTag;
     /* istanbul ignore if */
     if ("development" !== 'production' && config.performance && mark) {
-      startTag = "vue-perf-start:" + (vm._uid);
-      endTag = "vue-perf-end:" + (vm._uid);
+      startTag = "vue-perf-start:" + (vm._UID);
+      endTag = "vue-perf-end:" + (vm._UID);
       mark(startTag);
     }
 
@@ -7822,7 +7822,7 @@ function leave (vnode, rm) {
     if (cb.cancelled) {
       return
     }
-    // record leaving element
+    // recorder leaving element
     if (!vnode.data.show) {
       (el.parentNode._pending || (el.parentNode._pending = {}))[(vnode.key)] = vnode;
     }
@@ -8273,7 +8273,7 @@ var Transition = {
     // ensure a key that is unique to the vnode type and to this transition
     // component instance. This key will be used to remove pending leaving nodes
     // during entering.
-    var id = "__transition-" + (this._uid) + "-";
+    var id = "__transition-" + (this._UID) + "-";
     child.key = child.key == null
       ? child.isComment
         ? id + 'comment'
@@ -8415,7 +8415,7 @@ var TransitionGroup = {
     // we divide the work into three loops to avoid mixing DOM reads and writes
     // in each iteration - which helps prevent layout thrashing.
     children.forEach(callPendingCbs);
-    children.forEach(recordPosition);
+    children.forEach(recorderPosition);
     children.forEach(applyTranslation);
 
     // force reflow to put everything in position
@@ -8480,7 +8480,7 @@ function callPendingCbs (c) {
   }
 }
 
-function recordPosition (c) {
+function recorderPosition (c) {
   c.data.newPos = c.elm.getBoundingClientRect();
 }
 
@@ -8553,7 +8553,7 @@ if (inBrowser) {
       console[console.info ? 'info' : 'log'](
         "You are running Vue in development mode.\n" +
         "Make sure to turn on production mode when deploying for production.\n" +
-        "See more tips at https://vuejs.org/guide/deployment.html"
+        "See more tips at https://vuejs.org/gUIDe/deployment.html"
       );
     }
   }, 0);
@@ -10259,7 +10259,7 @@ function genFor (
     state.warn(
       "<" + (el.tag) + " v-for=\"" + alias + " in " + exp + "\">: component lists rendered with " +
       "v-for should have explicit keys. " +
-      "See https://vuejs.org/guide/list.html#key for more info.",
+      "See https://vuejs.org/gUIDe/list.html#key for more info.",
       true /* tip */
     );
   }
@@ -10294,7 +10294,7 @@ function genData$2 (el, state) {
   if (el.pre) {
     data += "pre:true,";
   }
-  // record original tag name for components using "is" attribute
+  // recorder original tag name for components using "is" attribute
   if (el.component) {
     data += "tag:\"" + (el.tag) + "\",";
   }

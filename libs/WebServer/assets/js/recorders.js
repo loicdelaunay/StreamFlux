@@ -1,11 +1,12 @@
-//When user add record
+//When user add recorder
 $("#btn-post").click(function () {
     let url = $("#url").val();
     let quality = $("#quality").val();
     let folder = $("#folder").val() + $("#filename").val() + ".mp4";
     let startAt = $("#start-time").val();
     let endAt = $("#end-time").val();
-
+    let startAnytime = $("#start-anytime").is(':checked');
+  
     //control data
     if(url === ""){
         toastr['error']('please add a valid url!');
@@ -19,18 +20,21 @@ $("#btn-post").click(function () {
         toastr['error']('please add a valid folder!');
     }
 
-    else if(startAt === ""){
+    else if (startAt === endAt && !startAnytime) {
+        toastr['error']('Please use Anytime checkbox instead of the same start and end time');
+    }
+
+    else if (startAt === "" && !startAnytime){
         toastr['error']('please add a valid start hour!');
     }
 
-    else if(endAt === ""){
+    else if (endAt === "" && !startAnytime){
         toastr['error']('please add a valid end hour!');
     }
 
     else{
-        //Ajout du record en bdd
         $.ajax({
-                url: "/addRecord/",
+                url: "/addRecorder/",
                 type: "POST",
                 dataType: "Json",
                 data: {
@@ -39,13 +43,14 @@ $("#btn-post").click(function () {
                     quality: quality,
                     startAt: startAt,
                     endAt: endAt,
+                    startAnytime: startAnytime
                 },
                 error: function (data) {
                     toastr['error']('error in saved ! : ' + data.responseText);
                 },
 
                 success: function (data) {
-                    toastr['success']('record saved and ready !');
+                    toastr['success']('recorder saved and ready !');
                 }
             }
         )
@@ -53,31 +58,31 @@ $("#btn-post").click(function () {
 });
 
 //Table management
-var appRecord = new Vue({
-    el: " #app-record",
+var appRecorder = new Vue({
+    el: " #app-recorder",
     data: {
-        records: [],
+        recorders: [],
     },
     methods: {
-        removeRecord(uid) {
+        removeRecorder(UID) {
             $.ajax({
-                url: "/removeRecord/",
+                url: "/removeRecorder/",
                 type: "POST",
                 dataType: "Json",
                 data: {
-                    uid: uid,
+                    UID: UID,
                 },
                 error: function (data) {
                     toastr['error']('error in deleting ! : ' + data.statusText);
                 },
                 success: function (data) {
-                    toastr['success']('record setting deleted !');
+                    toastr['success']('recorder setting deleted !');
                 }
             })
         }
     }
 });
 
-socket.on('records', function (records) {
-    appRecord.records = records;
+socket.on('recorders', function (recorders) {
+    appRecorder.recorders = recorders;
 });

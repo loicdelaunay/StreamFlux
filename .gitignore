@@ -5,3 +5,17 @@
 data/records\.json
 
 data/record/
+
+\.vs/
+
+bin/
+
+obj/
+
+libs/Streamlink/win/
+
+*.njsproj
+
+node_modules/
+
+data/

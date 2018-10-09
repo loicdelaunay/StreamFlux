@@ -1127,9 +1127,9 @@ inherit(TouchMouseInput, Input, {
             return;
         }
 
-        // when we're in a touch event, record touches to  de-dupe synthetic mouse event
+        // when we're in a touch event, recorder touches to  de-dupe synthetic mouse event
         if (isTouch) {
-            recordTouches.call(this, inputEvent, inputData);
+            recorderTouches.call(this, inputEvent, inputData);
         } else if (isMouse && isSyntheticEvent.call(this, inputData)) {
             return;
         }
@@ -1146,7 +1146,7 @@ inherit(TouchMouseInput, Input, {
     }
 });
 
-function recordTouches(eventType, eventData) {
+function recorderTouches(eventType, eventData) {
     if (eventType & INPUT_START) {
         this.primaryTouch = eventData.changedPointers[0].identifier;
         setLastTouch.call(this, eventData);

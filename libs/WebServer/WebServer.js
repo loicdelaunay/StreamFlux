@@ -23,16 +23,16 @@ class WebServer {
         app.use(bodyParser.json());
 
         /** ROUTAGE DE BASE POST **/
-        app.post('/addRecord/', function (req, res) {
-            global.records.push(new global.class_record(req.body.url, req.body.quality, req.body.folder, req.body.startAt, req.body.endAt));
-            global.module_datamanager.saveRecords();
-            io.emit('records', global.records);
+        app.post('/addRecorder/', function (req, res) {
+            global.recorders.push(new global.class_recorder(req.body.url, req.body.quality, req.body.folder, req.body.startAt, req.body.endAt, req.body.startAnytime));
+            global.module_datamanager.saveRecorders();
+            io.emit('recorders', global.recorders);
             res.json("ok");
         });
 
-        app.post('/removeRecord/', function (req, res) {
-            global.module_datamanager.removeRecords(req.body.uid);
-            io.emit('records', global.records);
+        app.post('/removeRecorder/', function (req, res) {
+            global.module_datamanager.removeRecorders(req.body.uid);
+            io.emit('recorders', global.recorders);
             res.json("ok");
         });
 
@@ -56,10 +56,10 @@ class WebServer {
             });
         });
 
-        //Page records
-        app.get('/record-schedule', function (req, res) {
-            res.render(webServerViewsFolder + 'record-schedule.ejs', {
-                page: "record-schedule",
+        //Page recorders
+        app.get('/recorders', function (req, res) {
+            res.render(webServerViewsFolder + 'recorders.ejs', {
+                page: "recorders",
                 defaultFolder: defaultDownloadFolder
             });
         });
@@ -83,7 +83,7 @@ class WebServer {
         //Gestion de socket.io
         io.on('connection', function (socket) {
             global.module_logmanager.addLogUser('User connected');
-            global.module_serverweb.recordsUpdate();
+            global.module_webserver.recordersUpdate();
             socket.on('disconnect', function () {
                 global.module_logmanager.addLogUser('User disconnected');
             });
@@ -91,8 +91,8 @@ class WebServer {
 
     }
 
-    recordsUpdate() {
-        io.emit('records', global.records);
+    recordersUpdate() {
+        io.emit('recorders', global.recorders);
     }
 
     logsUpdate() {
@@ -110,7 +110,7 @@ class WebServer {
                 speed: unProcess.speed,
                 time: unProcess.time,
                 url: unProcess.url,
-                uid: unProcess.uid,
+                UID: unProcess.uid,
                 startAt: unProcess.startAt,
                 endAt: unProcess.endAt,
                 state: unProcess.state,

@@ -1539,7 +1539,7 @@ var initPhotoSwipeFromDOM = function (gallerySelector) {
         options = {
 
             // define gallery index (for URL)
-            galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+            galleryUID: galleryElement.getAttribute('data-pswp-UID'),
 
             getThumbBoundsFn: function (index) {
                 // See Options -> getThumbBoundsFn section of documentation for more info
@@ -1593,7 +1593,7 @@ var initPhotoSwipeFromDOM = function (gallerySelector) {
     var galleryElements = document.querySelectorAll(gallerySelector);
 
     for (var i = 0, l = galleryElements.length; i < l; i++) {
-        galleryElements[i].setAttribute('data-pswp-uid', i + 1);
+        galleryElements[i].setAttribute('data-pswp-UID', i + 1);
         galleryElements[i].onclick = onThumbnailsClick;
     }
 

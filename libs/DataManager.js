@@ -5,36 +5,36 @@
 class DataManager{
     constructor() {
 
-        // records array
-        global.records = [];
+        // recorders array
+        global.recorders = [];
 
-        /** Loading from disk records */
-        this.dataRecordsPath = global.__root + "/data/records.json";
+        /** Loading from disk recorders */
+        this.dataRecordersPath = global.__root + "/data/recorders.json";
 
-        if(global.module_filesystem.existsSync(this.dataRecordsPath)){
-            global.records = JSON.parse(global.module_filesystem.readFileSync(this.dataRecordsPath,"utf8"));
+        if(global.module_filesystem.existsSync(this.dataRecordersPath)){
+            global.recorders = JSON.parse(global.module_filesystem.readFileSync(this.dataRecordersPath,"utf8"));
         }else{
-            global.module_logmanager.addLog("No records saved list");
+            global.module_logmanager.addLog("No recorders saved list");
         }
     }
 
-    /** Save records on disk in Json file records.json */
-    saveRecords(){
-        global.module_filesystem.writeFileSync(this.dataRecordsPath,JSON.stringify(global.records),function(err){
+    /** Save recorders on disk in Json file recorders.json */
+    saveRecorders(){
+        global.module_filesystem.writeFileSync(this.dataRecordersPath,JSON.stringify(global.recorders),function(err){
             if(err){
-                global.module_logmanager.addLog("Error creation of records data file : " + err);
+                global.module_logmanager.addLog("Error creation of recorders data file : " + err);
             }else{
-                global.module_logmanager.addLog("records list saved on disk");
+                global.module_logmanager.addLog("recorders list saved on disk");
             }
         })
     }
 
-    /** Remove record in list */
-    removeRecords(uid){
-        global.records.forEach(function(unRecord,index){
-            if(unRecord.uid.toString() === uid.toString()){
-                global.records.splice(index,1);
-                global.module_datamanager.saveRecords();
+    /** Remove recorder in list */
+    removeRecorders(UID){
+        global.recorders.forEach(function(aRecorder,index){
+            if(aRecorder.uid.toString() === UID.toString()){
+                global.recorders.splice(index,1);
+                global.module_datamanager.saveRecorders();
             }
         });
     }

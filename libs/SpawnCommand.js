@@ -6,102 +6,103 @@ class CommandSpawn{
     constructor(){
 
     }
+    
+    launchRecorderProcess(recorder, file, done) {
+        let ping = new global.module_streamlink(recorder.url); // Ping stream to retrieve infos
+        ping.getQualities();
+        ping.uid = recorder.uid;
+        ping.on('quality', (qualities) => {
 
-    /** Launch process in background */
-    exec(command){
-        let process = global.module_childprocess.exec(command);
+            // Test active attempt to start
+            let isActive = false;
+            global.listProcess.forEach(function (unProcess) {
+                if (unProcess.uid === recorder.uid) {
+                    isActive = true;
+                }
+            });
+            if (isActive) return;
+            let quality;
 
-        process.stdout.on('data', (data) => {
-            global.module_logmanager.addLogStreamLink('Sub-Process log -> ' + process.uid + ' : ' + data.toString());
-        });
+            switch (recorder.quality) {
+                case "1":
+                    quality = "worst"; // Bad quality
+                    break;
+                case "2":
+                    quality = qualities[(qualities.length - 1) / 2]; // Middle quality
+                    break;
+                case "3":
+                    quality = qualities[qualities.length - 2]; // "Not the the best" quality
+                    break;
+                case "4":
+                    quality = "best"; // Best quality
+                    break;
+                case "audio":
+                    quality = qualities[0]; // Audio Only or Worst possible
+                    break;
+                default:
+            }
 
-        process.stderr.on('data', (data) => {
-            global.module_logmanager.addLogStreamLink('Sub-Process error -> ' + process.uid + ' : ' + data.toString());
-        });
+            let process = new global.module_streamlink(recorder.url).quality(quality).output(file).start();
 
-        process.on('exit', (code) => {
-            global.module_logmanager.addLogStreamLink('Sub-Process exit -> ' + process.uid + ' : ' + code.toString());
-        });
-        return process;
-    }
+            process.uid = recorder.uid; //UID of process = recorder UID
+            process.size = "loading";
+            process.speed = "loading ";
+            process.time = "loading";
+            process.state = "loading";
 
-    /** Launch process for streamlink in background. */
-
-    execStreamLink(command,uid){
-        let process = global.module_childprocess.exec(command);
-
-        process.uid = uid; //Uid of process = record uid
-        process.size = "loading";
-        process.speed = "loading ";
-        process.time = "loading";
-        process.state = "loading";
-
-        //Catch process logs
-        process.consoleLog = function consoleLog(data){
-            global.module_logmanager.addLogStreamLink('Process ' + process.uid + ' : ' + data.toString());
-
-            //Try to get infos from process
-            let args = data.toString().split(' ');
-
-            //Catch process error
-            if(args[0] !== undefined && args[0] === "error:"){
-                global.module_spawncommand.setState(process.uid,"error",data);
+            //Catch Streamlink error
+            process.on('err', (err) => {
+                global.module_spawncommand.setState(process.uid, "Error", err);
                 global.module_spawncommand.removeProcess(process.uid);
-            }
+                global.module_webserver.processesUpdate();
+            });
 
-            //Try to get infos from process
-            if(args[2] !== undefined && args[3] !== undefined){
-                process.size = args[2] + ' ' + args[3];
-                global.module_spawncommand.setState(process.uid, "running", "process is actually recording");
-            }
-            if(args[6] !== undefined && args[7] !== undefined){
-                process.speed = args[6] + ' ' + args[7].slice(0,args[7].length-1);
-            }
-            if(args[4] !== undefined ){
-                process.time = args[4].substr(1);
-            }
-            if (args[1] === "Available" && args[2] === "streams:") {      //Catch available stream qualities
-                let qualities = data.toString().substring(0, (args[0].length + args[1].length) - 1);
-                qualities = qualities.split(',');
-                qualities.forEach(function(quality){
-                    quality.replace(/ *\([^)]*\) */g, "");
-                });
-            }
+            //Catch Streamlink logs
+            process.on('log', (data) => {
+                global.module_logmanager.addLogStreamLink('Process ' + process.uid + ' : ' + data.toString());
 
-            global.module_serverweb.processesUpdate();
-        };
+                //Try to get infos from process
+                let args = data.toString().split(' ');
 
-        //Catch process logs
-        process.stdout.on('data', (data) => {
-            process.consoleLog(data);
+                //Try to get infos from process
+                if (args[2] !== undefined && args[3] !== undefined) {
+                    process.size = args[2] + ' ' + args[3];
+                    global.module_spawncommand.setState(process.uid, "Running", "Record in progress");
+                }
+                if (args[6] !== undefined && args[7] !== undefined) {
+                    process.speed = args[6] + ' ' + args[7].slice(0, args[7].length - 1);
+                }
+                if (args[4] !== undefined) {
+                    process.time = args[4].substr(1);
+                }
+
+                global.module_webserver.processesUpdate();
+            });
+
+            process.on('exit', (code) => {
+                global.module_logmanager.addLog('Process ' + process.uid + ' stopped : ' + code.toString());
+                global.module_webserver.processesUpdate();
+            });
+            return done(process, recorder);
         });
-        process.stderr.on('data', (data) => {
-            process.consoleLog(data);
-        });
-
-        process.on('exit', (code) => {
-            global.module_logmanager.addLog('Process ' + process.uid + ' exited : ' + code.toString());
-            global.module_serverweb.processesUpdate();
-        });
-
-        return process;
+        return ping;
     }
 
-    /** Find record object of process and set state */
-    setState(uid,state,stateMessage){
-        global.records.forEach(function (unRecord) {
-            if (unRecord.uid = uid) {
-                unRecord.state = state;
-                unRecord.stateMessage = stateMessage;
-                global.module_serverweb.recordsUpdate();
+    /** Find recorder object of process and set state */
+    setState(UID,state,stateMessage){
+        global.recorders.forEach(function (aRecorder) {
+            if (aRecorder.uid = UID) {
+                aRecorder.state = state;
+                aRecorder.stateMessage = stateMessage;
+                global.module_webserver.recordersUpdate();
             }
         });
     }
 
     /** Destroy process */
-    removeProcess(uid){
+    removeProcess(UID){
         global.listProcess.forEach(function (unProcess, index) {
-            if (unProcess.uid === uid) {
+            if (unProcess.uid === UID) {
                 global.listProcess.splice(index, 1);
             }
         });

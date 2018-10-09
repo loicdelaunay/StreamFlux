@@ -9771,7 +9771,7 @@ var helpers = {
 	 * @returns {Number}
 	 * @function
 	 */
-	uid: (function() {
+	UID: (function() {
 		var id = 0;
 		return function() {
 			return id++;
