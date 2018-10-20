@@ -36,6 +36,12 @@ class WebServer {
             res.json("ok");
         });
 
+        app.post('/getVideos/', function (req, res) {
+            let files = global.module_filesystem.readdirSync(global.__root + "\\libs\\WebServer\\assets\\data\\videos");
+            console.log(files);
+            res.json(files);
+        });
+
         /** ROUTAGE DE BASE **/
         //Page accueil
         app.get('/', function (req, res) {
@@ -59,6 +65,51 @@ class WebServer {
                 page: "mediaplayer",
                 appInfos: global.appInfo
             });
+        });
+
+        //Page mediaplayer video player
+        app.get('/videoplayer', function (req, res) {
+            let video = req.query['video'];
+            console.log("user requested : " + video);
+            res.render(webServerViewsFolder + 'videoplayer.ejs', {
+                page: "videoplayer",
+                videolink: "/videostream?video=" + video,
+                appInfos: global.appInfo
+            });
+        });
+
+        //Page mediaplayer video stream ( reading flux from media )
+        app.get('/videostream', function (req, res) {
+            let video = req.query['video'];
+            console.log("Reading video : " + video)
+            let path = global.__root + "\\libs\\WebServer\\assets\\data\\videos\\" + video;
+            let stat = global.module_filesystem.statSync(path)
+            let fileSize = stat.size
+            let range = req.headers.range
+            if (range) {
+                let parts = range.replace(/bytes=/, "").split("-")
+                let start = parseInt(parts[0], 10)
+                let end = parts[1]
+                    ? parseInt(parts[1], 10)
+                    : fileSize - 1
+                let chunksize = (end - start) + 1
+                let file = global.module_filesystem.createReadStream(path, {start, end})
+                let head = {
+                    'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+                    'Accept-Ranges': 'bytes',
+                    'Content-Length': chunksize,
+                    'Content-Type': 'video/mp4',
+                }
+                res.writeHead(206, head);
+                file.pipe(res);
+            } else {
+                const head = {
+                    'Content-Length': fileSize,
+                    'Content-Type': 'video/mp4',
+                }
+                res.writeHead(200, head)
+                global.module_filesystem.createReadStream(path).pipe(res)
+            }
         });
 
         //Page logs

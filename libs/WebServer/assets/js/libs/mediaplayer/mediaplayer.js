@@ -1,3 +1,7 @@
+version = 0.1;
+
+console.log("Media player v"+ version +" loaded welcome :)")
+
 //Table management
 var appPlayer = new Vue({
     el: " #app-player",

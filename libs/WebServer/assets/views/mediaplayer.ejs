@@ -18,11 +18,27 @@
 
         <div id="app-player" class="row">
 
-            <div v-for="(value, key, index) in videos" class="card col-4">
-                <video v-bind:id="'player'+index" playsinline controls>
-                    <source v-bind:src="'/data/videos/'+value" type="video/mp4">
-                </video>
-            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Options</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr v-for="(value, key, index) in videos">
+                    <th scope="row">{{key}}</th>
+                    <td>{{value}}</td>
+                    <td>
+                        <a type="button" class="btn btn-outline-success btn-rounded waves-effect" v-bind:href="'videoplayer?video='+value">Play</a>
+                        <a type="button" class="btn btn-outline-danger btn-rounded waves-effect">Delete</a>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
 
         </div>
 
