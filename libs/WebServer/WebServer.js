@@ -39,27 +39,33 @@ class WebServer {
         /** ROUTAGE DE BASE **/
         //Page accueil
         app.get('/', function (req, res) {
-            res.render(webServerViewsFolder + 'accueil.ejs', {page: "home"});
+            res.render(webServerViewsFolder + 'accueil.ejs', {
+                page: "home",
+                appInfos: global.appInfo
+            });
         });
 
         //Page process
         app.get('/processes', function (req, res) {
             res.render(webServerViewsFolder + 'process.ejs', {
-                page: "processes"
+                page: "processes",
+                appInfos: global.appInfo
             });
         });
 
         //Page mediaplayer
         app.get('/mediaplayer', function (req, res) {
             res.render(webServerViewsFolder + 'mediaplayer.ejs', {
-                page: "mediaplayer"
+                page: "mediaplayer",
+                appInfos: global.appInfo
             });
         });
 
         //Page logs
         app.get('/logs', function (req, res) {
             res.render(webServerViewsFolder + 'logs.ejs', {
-                page: "logs"
+                page: "logs",
+                appInfos: global.appInfo
             });
         });
 
@@ -67,13 +73,17 @@ class WebServer {
         app.get('/recorders', function (req, res) {
             res.render(webServerViewsFolder + 'recorders.ejs', {
                 page: "recorders",
-                defaultFolder: defaultDownloadFolder
+                defaultFolder: defaultDownloadFolder,
+                appInfos: global.appInfo
             });
         });
 
         //Page settings
         app.get('/settings', function (req, res) {
-            res.render(webServerViewsFolder + 'settings.ejs', {page: "settings"});
+            res.render(webServerViewsFolder + 'settings.ejs', {
+                page: "settings",
+                appInfos: global.appInfo
+            });
         });
 
         //Page introuvable
