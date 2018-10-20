@@ -15,5 +15,12 @@ global.module_logmanager.addLog("-*-*-*-*- Welcome to " + global.appInfo.appName
 global.module_logmanager.addLog(" -* Program version : " + global.appInfo.appVersion + " *- ");
 global.module_logmanager.addLog(" -* NodeJS version : " + global.process.version + " *- ");
 global.module_logmanager.addLog(" -* Folder : " + global.__root + " *- ");
+
+if (global.module_webserver.certificated) {
+    global.module_logmanager.addLog(" -* Running https server in port : " + global.config.server_port + " *- ");
+} else {
+    global.module_logmanager.addLog(" -* Running http server in port : " + global.config.server_port + " *- ");
+}
+
 global.module_logmanager.addLog(" -* OS : " + global.module_os.type + "/" + global.module_os.platform + " *- ");
 global.module_logmanager.addLog("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");

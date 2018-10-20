@@ -1,11 +1,36 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const https = require('https');
+const http = require('http');
 const webServerFolder = global.__root + '/libs/WebServer/';
 const webServerViewsFolder = global.__root + '/libs/WebServer/assets/views/';
 var defaultDownloadFolder = "";
+var io;
+
+var certificated = false;
+try{
+    var privateKey  = global.module_filesystem.readFileSync(global.__root+'/server.key', 'utf8');
+    var certificate = global.module_filesystem.readFileSync(global.__root+'/server.crt', 'utf8');
+    var credentials = {key: privateKey, cert: credentials};
+    certificated = true;
+}catch (e) {
+    console.warn("[Web Server] : No valid certification files for https, need server.key & server.crt in app folder : " + e)
+}
+
+if(certificated){
+    var httpsServer = https.createServer(credentials, app);
+    httpsServer.listen(global.config.server_port);
+    io = require('socket.io').listen(httpsServer);
+    console.log("[Web Server] : Running " + global.appInfo.appName + " https server on : " + global.config.server_port);
+
+}else{
+    var httpServer = http.createServer(app);
+    httpServer.listen(global.config.server_port);
+    io = require('socket.io').listen(httpServer);
+    console.warn("[Web Server] : Please use https, some features can be broken, Running " + global.appInfo.appName + " http server on : " + global.config.server_port);
+
+}
 
 //Set download default folder with config file
 if (global.config.default_folder === "default") {
@@ -38,7 +63,6 @@ class WebServer {
 
         app.post('/getVideos/', function (req, res) {
             let files = global.module_filesystem.readdirSync(global.__root + "\\libs\\WebServer\\assets\\data\\videos");
-            console.log(files);
             res.json(files);
         });
 
@@ -70,7 +94,7 @@ class WebServer {
         //Page mediaplayer video player
         app.get('/videoplayer', function (req, res) {
             let video = req.query['video'];
-            console.log("user requested : " + video);
+            console.log("User playing video : " + video);
             res.render(webServerViewsFolder + 'videoplayer.ejs', {
                 page: "videoplayer",
                 videolink: "/videostream?video=" + video,
@@ -81,7 +105,6 @@ class WebServer {
         //Page mediaplayer video stream ( reading flux from media )
         app.get('/videostream', function (req, res) {
             let video = req.query['video'];
-            console.log("Reading video : " + video)
             let path = global.__root + "\\libs\\WebServer\\assets\\data\\videos\\" + video;
             let stat = global.module_filesystem.statSync(path)
             let fileSize = stat.size
@@ -141,11 +164,6 @@ class WebServer {
         app.use(function (req, res, next) {
             res.setHeader('Content-Type', 'text/plain');
             res.status(404).send('Page introuvable !');
-        });
-
-        //Ecoute sur le port
-        http.listen(global.config.server_port, function () {
-            global.module_logmanager.addLog('listening on *:' + global.config.server_port);
         });
 
         //Gestion de socket.io
