@@ -49,6 +49,13 @@ class WebServer {
             });
         });
 
+        //Page mediaplayer
+        app.get('/mediaplayer', function (req, res) {
+            res.render(webServerViewsFolder + 'mediaplayer.ejs', {
+                page: "mediaplayer"
+            });
+        });
+
         //Page logs
         app.get('/logs', function (req, res) {
             res.render(webServerViewsFolder + 'logs.ejs', {
