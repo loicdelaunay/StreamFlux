@@ -12,7 +12,7 @@ var certificated = false;
 try{
     var privateKey  = global.module_filesystem.readFileSync(global.__root+'/server.key', 'utf8');
     var certificate = global.module_filesystem.readFileSync(global.__root+'/server.crt', 'utf8');
-    var credentials = {key: privateKey, cert: credentials};
+    var credentials = {key: privateKey, cert: certificate};
     certificated = true;
 }catch (e) {
     console.warn("[Web Server] : No valid certification files for https, need server.key & server.crt in app folder : " + e)
